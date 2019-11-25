@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/welcomeFragment">
+
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.sergio.helpelders.welcome_screen.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_viewpagerFragment"
+            app:destination="@id/viewpagerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/elderFragment"
+        android:name="com.sergio.helpelders.welcome_screen.ElderFragment"
+        android:label="fragment_elder"
+        tools:layout="@layout/fragment_elder" >
+        <action
+            android:id="@+id/action_elderFragment_to_volunteerFragment"
+            app:destination="@id/volunteerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/volunteerFragment"
+        android:name="com.sergio.helpelders.welcome_screen.VolunteerFragment"
+        android:label="fragment_volunteer"
+        tools:layout="@layout/fragment_volunteer" >
+        <action
+            android:id="@+id/action_volunteerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewpagerFragment"
+        android:name="com.sergio.helpelders.welcome_screen.ViewpagerFragment"
+        android:label="fragment_viewpager"
+        tools:layout="@layout/fragment_viewpager" >
+        <action
+            android:id="@+id/action_viewpagerFragment_to_elderFragment"
+            app:destination="@id/elderFragment" />
+        <action
+            android:id="@+id/action_viewpagerFragment_to_volunteerFragment"
+            app:destination="@id/volunteerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.sergio.helpelders.login_register_screen.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.sergio.helpelders.login_register_screen.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.sergio.helpelders.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+</navigation>
