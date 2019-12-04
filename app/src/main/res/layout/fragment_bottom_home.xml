@@ -6,6 +6,10 @@
     android:scrollbarAlwaysDrawHorizontalTrack="false"
     tools:context=".home.bottom_bar_navigation.BottomHomeFragment">
 
-
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/abrazo"
+        android:scaleType="centerCrop"/>
 
 </FrameLayout>

@@ -36,6 +36,7 @@
             android:layout_marginTop="50dp">
 
             <EditText
+                android:id="@+id/edittext_nombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/campos"
@@ -43,6 +44,7 @@
                 android:inputType="textPersonName"/>
 
             <EditText
+                android:id="@+id/edittext_apellidos"
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,6 +53,7 @@
                 android:inputType="textPersonName"/>
 
             <EditText
+                android:id="@+id/edittext_fechaNac"
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -59,7 +62,7 @@
                 android:inputType="date"/>
 
             <EditText
-                android:id="@+id/editTextTelf"
+                android:id="@+id/edittext_nTelf"
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -69,7 +72,7 @@
                 android:layout_marginBottom="10dp"/>
 
             <EditText
-                android:id="@+id/editTextРass"
+                android:id="@+id/edittext_pass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/campos"
