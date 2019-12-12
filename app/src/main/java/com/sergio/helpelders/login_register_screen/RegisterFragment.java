@@ -12,7 +12,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
@@ -26,8 +25,6 @@ public class RegisterFragment extends Fragment {
     private EditText nombreEditText, apellidosEditText, fechaNacEditText, nTelfEditText, passEditText;
     private Button registerButton;
 
-    public RegisterFragment() { }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_register, container, false);
@@ -38,12 +35,7 @@ public class RegisterFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         btnGoBack = view.findViewById(R.id.btnGoBack);
-        btnGoBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.loginFragment);
-            }
-        });
+        btnGoBack.setOnClickListener(view12 -> Navigation.findNavController(view12).navigate(R.id.loginFragment));
 
         autenticacionViewModel = ViewModelProviders.of(requireActivity()).get(AutenticacionViewModel.class);
 
@@ -57,35 +49,31 @@ public class RegisterFragment extends Fragment {
         autenticacionViewModel.iniciarRegistro();
 
         registerButton = view.findViewById(R.id.btnRegistrar);
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                autenticacionViewModel.crearCuentaEIniciarSesion(nombreEditText.getText().toString(),
-                        apellidosEditText.getText().toString(), fechaNacEditText.getText().toString(),
-                        nTelfEditText.getText().toString(), passEditText.getText().toString());
+        registerButton.setOnClickListener(view1 -> {
+           // Log.e("ABCD", "registrando.....");
+            autenticacionViewModel.crearCuentaEIniciarSesion(nombreEditText.getText().toString(),
+                    apellidosEditText.getText().toString(), fechaNacEditText.getText().toString(),
+                    nTelfEditText.getText().toString(), passEditText.getText().toString());
+
+            Navigation.findNavController(view1).navigate(R.id.homeFragment);
+        });
+
+        autenticacionViewModel.estadoDelRegistro.observe(getViewLifecycleOwner(), estadoDelRegistro -> {
+      //     Log.e("ABCD", "estado del registro.....");
+            switch (estadoDelRegistro){
+                case NOMBRE_NO_DISPONIBLE:
+                    Toast.makeText(getContext(), "NOMBRE DE USUARIO NO DISPONIBLE", Toast.LENGTH_SHORT).show();
+                    break;
             }
         });
 
-        autenticacionViewModel.estadoDelRegistro.observe(getViewLifecycleOwner(), new Observer<AutenticacionViewModel.EstadoDelRegistro>() {
-            @Override
-            public void onChanged(AutenticacionViewModel.EstadoDelRegistro estadoDelRegistro) {
-                switch (estadoDelRegistro){
-                    case NOMBRE_NO_DISPONIBLE:
-                        Toast.makeText(getContext(), "NOMBRE DE USUARIO NO DISPONIBLE", Toast.LENGTH_SHORT).show();
-                        break;
-                }
-            }
-        });
-
-        autenticacionViewModel.estadoDeLaAutenticacion.observe(getViewLifecycleOwner(), new Observer<AutenticacionViewModel.EstadoDeLaAutenticacion>() {
-            @Override
-            public void onChanged(AutenticacionViewModel.EstadoDeLaAutenticacion estadoDeLaAutenticacion) {
+        autenticacionViewModel.estadoDeLaAutenticacion.observe(getViewLifecycleOwner(), estadoDeLaAutenticacion -> {
+                //Log.e("ABCD", "estado del login.....");
                 switch (estadoDeLaAutenticacion){
                     case AUTENTICADO:
-                        Navigation.findNavController(view).navigate(R.id.loginFragment);
-                        //Navigation.findNavController(view).popBackStack();
+                       // Log.e("ABCD", "estado del login OKKKKK.....");
+                        Navigation.findNavController(view).popBackStack();
                         break;
-                }
             }
         });
 

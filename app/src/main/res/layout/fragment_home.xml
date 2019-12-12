@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbarAlwaysDrawHorizontalTrack="false"
-    tools:context=".home.bottom_bar_navigation.BottomHomeFragment">
+    tools:context=".home.bottom_bar_navigation.HomeFragment">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/abrazo"
-        android:scaleType="centerCrop"/>
+<!--    <ImageView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:src="@drawable/abrazo"-->
+<!--        android:scaleType="centerCrop"/>-->
 
 </FrameLayout>

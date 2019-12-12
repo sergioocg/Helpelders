@@ -3,27 +3,29 @@ package com.sergio.helpelders;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.sergio.helpelders.viewmodel.AutenticacionViewModel;
 
 // https://github.com/gerardfp/P9/tree/master/app/src/main/java/com/company/p9
 public class MainActivity extends AppCompatActivity {
     private NavController navController;
-    private DrawerLayout drawer;
+    private AutenticacionViewModel autenticacionViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        autenticacionViewModel = ViewModelProviders.of(this).get(AutenticacionViewModel.class);
+
+        autenticacionViewModel.mostrarUsuarios();
 
         // NavController
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -34,54 +36,25 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(bottomNavView, navController);
 
         // Toolbar superior
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.superiorBar);
         setSupportActionBar(myToolbar);
 
-        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
-            @Override
-            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
-                switch (destination.getId()) {
-                    case R.id.welcomeFragment:
-                    case R.id.viewpagerFragment:
-                    case R.id.loginFragment:
-                    case R.id.registerFragment:
-                    case R.id.forgotРasswordFragment:
-                        bottomNavView.setVisibility(View.GONE);
-                        myToolbar.setVisibility(View.GONE);
-                        break;
-                    default:
-                        bottomNavView.setVisibility(View.VISIBLE);
-                        myToolbar.setVisibility(View.VISIBLE);
-                        myToolbar.setTitle(obtenerNombreFragment());
-                }
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            switch (destination.getId()) {
+                case R.id.welcomeFragment:
+                case R.id.viewpagerFragment:
+                case R.id.loginFragment:
+                case R.id.registerFragment:
+                case R.id.forgotРasswordFragment:
+                case R.id.mapFragment:
+                    bottomNavView.setVisibility(View.GONE);
+                    myToolbar.setVisibility(View.GONE);
+                    break;
+                default:
+                    bottomNavView.setVisibility(View.VISIBLE);
+                    myToolbar.setVisibility(View.VISIBLE);
+                    myToolbar.setTitle(navController.getCurrentDestination().getLabel());
             }
         });
-    }
-
-    private String obtenerNombreFragment () {
-        String nameFragment = "";
-
-        switch(navController.getCurrentDestination().getLabel().toString()) {
-            case "fragment_bottom_home":
-                nameFragment = "Inicio";
-            break;
-
-            case "fragment_bottom_messages":
-                nameFragment = "Mensajes";
-            break;
-
-            case "fragment_bottom_profile":
-                nameFragment = "Рerfil";
-            break;
-
-            case "fragment_bottom_publish":
-                nameFragment = "Рublicar";
-            break;
-
-            case "fragment_bottom_search":
-                nameFragment = "Buscar";
-            break;
-        }
-        return nameFragment;
     }
 }

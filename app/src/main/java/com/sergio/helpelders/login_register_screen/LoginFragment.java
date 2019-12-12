@@ -1,7 +1,6 @@
 package com.sergio.helpelders.login_register_screen;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +9,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
@@ -47,50 +44,25 @@ public class LoginFragment extends Fragment {
         registerButton = view.findViewById(R.id.btnGoRegister);
         forgotРass = view.findViewById(R.id.forgotРass);
 
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.registerFragment);
-            }
-        });
+        registerButton.setOnClickListener(view12 -> Navigation.findNavController(view12).navigate(R.id.registerFragment));
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                autenticacionViewModel.iniciarSesion(nTelfEditText.getText().toString(), passEditText.getText().toString());
-                //Navigation.findNavController(view).navigate(R.id.bottomHomeFragment);
-                Log.e("ABCDE", autenticacionViewModel.mostrarUsuarios());
-            }
-        });
+        loginButton.setOnClickListener(view1 -> {
+            autenticacionViewModel.iniciarSesion(nTelfEditText.getText().toString(), passEditText.getText().toString());
 
-        autenticacionViewModel.estadoDeLaAutenticacion.observe(getViewLifecycleOwner(), new Observer<AutenticacionViewModel.EstadoDeLaAutenticacion>() {
-            @Override
-            public void onChanged(AutenticacionViewModel.EstadoDeLaAutenticacion estadoDeLaAutenticacion) {
+            autenticacionViewModel.estadoDeLaAutenticacion.observe(getViewLifecycleOwner(), estadoDeLaAutenticacion -> {
                 switch (estadoDeLaAutenticacion){
                     case AUTENTICADO:
-                        Navigation.findNavController(view).popBackStack();
+                        Navigation.findNavController(view1).navigate(R.id.homeFragment);
                         break;
 
                     case AUTENTICACION_INVALIDA:
                         Toast.makeText(getContext(), "CREDENCIALES NO VALIDAS", Toast.LENGTH_SHORT).show();
                         break;
                 }
-            }
+            });
         });
 
-        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),
-                new OnBackPressedCallback(true) {
-                    @Override
-                    public void handleOnBackPressed() {
-                        Navigation.findNavController(view).popBackStack(R.id.bottomHomeFragment, false);
-                    }
-                });
 
-        forgotРass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.forgotРasswordFragment);
-            }
-        });
+        forgotРass.setOnClickListener(view13 -> Navigation.findNavController(view13).navigate(R.id.forgotРasswordFragment));
     }
 }

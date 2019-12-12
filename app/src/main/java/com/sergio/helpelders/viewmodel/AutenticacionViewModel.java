@@ -2,6 +2,7 @@ package com.sergio.helpelders.viewmodel;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -10,6 +11,8 @@ import androidx.lifecycle.MutableLiveData;
 import com.sergio.helpelders.db.AppDao;
 import com.sergio.helpelders.db.AppDatabase;
 import com.sergio.helpelders.model.Usuario;
+
+import java.util.List;
 
 public class AutenticacionViewModel extends AndroidViewModel {
 
@@ -43,32 +46,26 @@ public class AutenticacionViewModel extends AndroidViewModel {
 
     public void crearCuentaEIniciarSesion(final String nombre, final String apellidos,
                                           final String fechaNac, final String nTelf, final String pass) {
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                Usuario usuario = appDao.comprobarNombreDisponible(nTelf);
-                if(usuario == null){
-                    appDao.insertarUsuario(new Usuario(nombre, apellidos, fechaNac, nTelf, pass));
-                    estadoDelRegistro.postValue(EstadoDelRegistro.REGISTRO_COMPLETADO);
-                    iniciarSesion(nTelf, pass);
-                } else {
-                    estadoDelRegistro.postValue(EstadoDelRegistro.NOMBRE_NO_DISPONIBLE);
-                }
+        AsyncTask.execute(() -> {
+            Usuario usuario = appDao.comprobarNombreDisponible(nTelf);
+            if(usuario == null){
+                appDao.insertarUsuario(new Usuario(nombre, apellidos, fechaNac, nTelf, pass));
+                estadoDelRegistro.postValue(EstadoDelRegistro.REGISTRO_COMPLETADO);
+                iniciarSesion(nTelf, pass);
+            } else {
+                estadoDelRegistro.postValue(EstadoDelRegistro.NOMBRE_NO_DISPONIBLE);
             }
         });
     }
 
     public void iniciarSesion(final String nTelf, final String pass) {
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                Usuario usuario = appDao.autenticar(nTelf, pass);
-                if(usuario != null){
-                    usuarioLogeado = usuario;
-                    estadoDeLaAutenticacion.postValue(EstadoDeLaAutenticacion.AUTENTICADO);
-                } else {
-                    estadoDeLaAutenticacion.postValue(EstadoDeLaAutenticacion.AUTENTICACION_INVALIDA);
-                }
+        AsyncTask.execute(() -> {
+            Usuario usuario = appDao.autenticar(nTelf, pass);
+            if(usuario != null){
+                usuarioLogeado = usuario;
+                estadoDeLaAutenticacion.postValue(EstadoDeLaAutenticacion.AUTENTICADO);
+            } else {
+                estadoDeLaAutenticacion.postValue(EstadoDeLaAutenticacion.AUTENTICACION_INVALIDA);
             }
         });
     }
@@ -78,8 +75,15 @@ public class AutenticacionViewModel extends AndroidViewModel {
         estadoDeLaAutenticacion.setValue(EstadoDeLaAutenticacion.NO_AUTENTICADO);
     }
 
-    public String mostrarUsuarios() {
-        Usuario usuario = appDao.mostrarTodosLosUsuarios();
-        return usuario.toString();
+    public void mostrarUsuarios() {
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                List<Usuario> usuarios = appDao.mostrarTodosLosUsuarios();
+                for(Usuario u: usuarios){
+                    Log.e("ABCD", u.toString());
+                }
+            }
+        });
     }
 }

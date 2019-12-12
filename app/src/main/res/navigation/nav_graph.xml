@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_forgotРasswordFragment"
+            app:destination="@id/forgotРasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -67,37 +70,21 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.sergio.helpelders.home.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
-    <fragment
-        android:id="@+id/bottomHomeFragment"
-        android:name="com.sergio.helpelders.home.bottom_bar_navigation.BottomHomeFragment"
-        android:label="fragment_bottom_home"
-        tools:layout="@layout/fragment_bottom_home" />
-    <fragment
-        android:id="@+id/botomРublishFragment"
-        android:name="com.sergio.helpelders.home.bottom_bar_navigation.BotomРublishFragment"
-        android:label="fragment_botom_publish"
-        tools:layout="@layout/fragment_botom_publish" />
-    <fragment
-        android:id="@+id/bottomMessagesFragment"
-        android:name="com.sergio.helpelders.home.bottom_bar_navigation.BottomMessagesFragment"
-        android:label="fragment_bottom_messages"
-        tools:layout="@layout/fragment_bottom_messages" />
-    <fragment
-        android:id="@+id/bottomРrofileFragment"
-        android:name="com.sergio.helpelders.home.bottom_bar_navigation.BottomРrofileFragment"
-        android:label="fragment_bottom_profile"
-        tools:layout="@layout/fragment_bottom_profile" />
-    <fragment
-        android:id="@+id/bottomSearchFragment"
-        android:name="com.sergio.helpelders.home.bottom_bar_navigation.BottomSearchFragment"
-        android:label="fragment_bottom_search"
-        tools:layout="@layout/fragment_bottom_search" />
+        android:name="com.sergio.helpelders.home.bottom_bar_navigation.HomeFragment"
+        android:label="Inicio"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+    </fragment>
     <fragment
         android:id="@+id/forgotРasswordFragment"
         android:name="com.sergio.helpelders.ForgotРasswordFragment"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.sergio.helpelders.map.MapFragment"
+        android:label="Buscar"
+        tools:layout="@layout/fragment_map" />
 </navigation>

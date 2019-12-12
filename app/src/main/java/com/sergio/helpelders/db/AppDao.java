@@ -6,12 +6,14 @@ import androidx.room.Query;
 
 import com.sergio.helpelders.model.Usuario;
 
+import java.util.List;
+
 @Dao
 public abstract class AppDao {
     @Insert
     public abstract void insertarUsuario(Usuario usuario);
 
-    @Query("SELECT * FROM Usuario WHERE nombre = :nTelf AND password = :password")
+    @Query("SELECT * FROM Usuario WHERE nTelf = :nTelf AND password = :password")
     public abstract Usuario autenticar(String nTelf, String password);
 
     // Si está registrado con un nTelf, no deje registrarse otra vez.
@@ -19,5 +21,5 @@ public abstract class AppDao {
     public abstract Usuario comprobarNombreDisponible(String nTelf);
 
     @Query("SELECT * FROM Usuario")
-    public abstract Usuario mostrarTodosLosUsuarios();
+    public abstract List<Usuario> mostrarTodosLosUsuarios();
 }

@@ -27,11 +27,6 @@ public class ForgotРasswordFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         btnGoBack = view.findViewById(R.id.btnGoBack);
-        btnGoBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.loginFragment);
-            }
-        });
+        btnGoBack.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.loginFragment));
     }
 }
