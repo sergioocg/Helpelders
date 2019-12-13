@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.mapFragment:
                     bottomNavView.setVisibility(View.GONE);
                     myToolbar.setVisibility(View.GONE);
-                    break;
+                break;
                 default:
                     bottomNavView.setVisibility(View.VISIBLE);
                     myToolbar.setVisibility(View.VISIBLE);
