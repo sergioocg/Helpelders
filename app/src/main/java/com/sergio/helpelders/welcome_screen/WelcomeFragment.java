@@ -34,6 +34,6 @@ public class WelcomeFragment extends Fragment {
                 // Después de X tiempo seguir a otra pantalla
                 Navigation.findNavController(view).navigate(R.id.viewpagerFragment);
             }
-        }, 3000 );//time in milisecond
+        }, 1500 );//time in milisecond
     }
 }

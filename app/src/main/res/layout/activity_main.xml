@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/nav_graph" />
+        app:navGraph="@navigation/nav_graph"/>
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
