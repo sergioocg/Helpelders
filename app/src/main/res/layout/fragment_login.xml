@@ -1,134 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/good_morning_img"
     tools:context=".login_register_screen.LoginFragment"
-    android:background="@drawable/gradient">
+    android:id="@+id/container">
 
-    <com.github.florent37.shapeofview.shapes.CutCornerView
-        android:id="@+id/clipCorner"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/text_titulo"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:shape_cutCorner_bottomRightSize="90dp"
-        app:shape_cutCorner_topLeftSize="90dp"
-        android:padding="30dp">
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/gotham"
+        android:text="¡ Buenos días !"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/box"
-        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/edittext_nTelf"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_layout_telf"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:textColorHint="#FFFFFF"
+        android:theme="@style/myEditTextStyle"
+        app:layout_constraintBottom_toTopOf="@+id/text_layout_contrasena"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_ntelf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nº de teléfono"
-            android:textSize="20sp"
-            android:textStyle="italic"
-            android:background="@drawable/campos"
-            android:inputType="number"/>
+            android:inputType="phone"
+            android:textColor="#FFFFFF"
+            android:drawableEnd="@drawable/ic_phone_white_4dp"/>
 
-        <EditText
-            android:id="@+id/edittext_pass"
-            android:layout_marginTop="20dp"
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_layout_contrasena"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:textColorHint="#FFFFFF"
+        android:theme="@style/myEditTextStyle"
+        app:layout_constraintBottom_toTopOf="@+id/btn_registrar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_contrasena"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Contraseña"
-            android:textSize="20sp"
-            android:textStyle="italic"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/campos"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:textColor="#FFFFFF"
+            android:drawableEnd="@drawable/ic_lock_white_24dp"/>
 
-        <CheckBox
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Recordar datos"
-            android:textStyle="bold"
-            android:textSize="18sp"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/btnGoHome"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Iniciar sesión"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:background="@drawable/button"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"/>
-
-        <TextView
-            android:id="@+id/forgotРass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="He olvidado la contraseña"
-            android:textColor="#64A8A8"
-            android:textSize="18sp"
-            android:layout_gravity="center"
-            android:textStyle="italic"/>
-    </LinearLayout>
-
-    </com.github.florent37.shapeofview.shapes.CutCornerView>
-
-
-    <com.github.florent37.shapeofview.shapes.CutCornerView
-        android:id="@+id/clipBottom"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/btn_registrar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:shape_cutCorner_topLeftSize="120dp"
-        android:layout_alignParentBottom="true">
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_button_white"
+        android:padding="15dp"
+        android:text="Registrarse"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/btn_recuperar_contrasena"
+        app:layout_constraintEnd_toStartOf="@+id/btn_iniciar"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="#FFFFFF"
-            android:gravity="right"
-            android:paddingTop="30dp"
-            android:paddingBottom="30dp">
+    <Button
+        android:id="@+id/btn_iniciar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_button_white"
+        android:padding="15dp"
+        android:text="Iniciar sesión"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/btn_recuperar_contrasena"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_registrar" />
 
-            <com.github.florent37.shapeofview.shapes.CutCornerView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:shape_cutCorner_topLeftSize="60dp">
+    <TextView
+        android:id="@+id/btn_recuperar_contrasena"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
+        android:text="¿Has olvidado la contraseña?"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-                <Button
-                    android:id="@+id/btnGoRegister"
-                    android:layout_width="300dp"
-                    android:layout_height="60dp"
-                    android:text="Darse de alta"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="#FFFFFF"
-                    android:background="#000000"/>
 
-            </com.github.florent37.shapeofview.shapes.CutCornerView>
-
-            <com.github.florent37.shapeofview.shapes.CutCornerView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:shape_cutCorner_topLeftSize="80dp"
-                android:paddingTop="20dp">
-
-                <Button
-                    android:id="@+id/btnGoGoogle"
-                    android:layout_width="360dp"
-                    android:layout_height="60dp"
-                    android:text="Google"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:textColor="#FFFFFF"
-                    android:background="#000000"/>
-
-            </com.github.florent37.shapeofview.shapes.CutCornerView>
-
-        </LinearLayout>
-
-    </com.github.florent37.shapeofview.shapes.CutCornerView>
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
