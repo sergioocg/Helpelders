@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.sergio.helpelders.login_register_screen.LoginFragment"
+        android:name="com.sergio.helpelders.login_register_forgot.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -61,7 +61,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.sergio.helpelders.login_register_screen.RegisterFragment"
+        android:name="com.sergio.helpelders.login_register_forgot.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -79,7 +79,7 @@
     </fragment>
     <fragment
         android:id="@+id/forgotРasswordFragment"
-        android:name="com.sergio.helpelders.ForgotРasswordFragment"
+        android:name="com.sergio.helpelders.login_register_forgot.ForgotРasswordFragment"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" />
     <fragment

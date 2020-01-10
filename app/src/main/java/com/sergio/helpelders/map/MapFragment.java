@@ -1,54 +1,68 @@
 package com.sergio.helpelders.map;
 
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 
-import org.osmdroid.tileprovider.tilesource.ITileSource;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
-import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.CopyrightOverlay;
-import org.osmdroid.views.overlay.MinimapOverlay;
-import org.osmdroid.views.overlay.ScaleBarOverlay;
-import org.osmdroid.views.overlay.compass.CompassOverlay;
-import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
-import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
-import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.sergio.helpelders.R;
+
+public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
+    private GoogleMap mMap;
+    private SupportMapFragment mapFragment;
+    private Marker markerUser, infoWindowUser;
+
+    private Button btnVolver;
+
+    int TAG_CODE_PERMISSION_LOCATION;
 
 
-public class MapFragment extends Fragment {
-    // ===========================================================
-    // Constants
-    // ===========================================================
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-    private static final String PREFS_NAME = "org.andnav.osm.prefs";
-    private static final String PREFS_TILE_SOURCE = "tilesource";
-    private static final String PREFS_LATITUDE_STRING = "latitudeString";
-    private static final String PREFS_LONGITUDE_STRING = "longitudeString";
-    private static final String PREFS_ORIENTATION = "orientation";
-    private static final String PREFS_ZOOM_LEVEL_DOUBLE = "zoomLevelDouble";
+        view.findViewById(R.id.boton_volver).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.homeFragment);
+            }
+        });
 
-    // ===========================================================
-    // Fields
-    // ===========================================================
-    private SharedPreferences mPrefs;
-    private MapView myOpenMapView;
-    private MyLocationNewOverlay mLocationOverlay;
-    private CompassOverlay mCompassOverlay = null;
-    private MinimapOverlay mMinimapOverlay;
-    private ScaleBarOverlay mScaleBarOverlay;
-    private RotationGestureOverlay mRotationGestureOverlay;
-    private CopyrightOverlay mCopyrightOverlay;
+        view.findViewById(R.id.boton_localizacion).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e("ABDC", "Botón GРS pulsado");
+                buscaLocalizacion();
+            }
+        });
+
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,152 +70,149 @@ public class MapFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-    }
-
-    //No funciona
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        myOpenMapView = new MapView(inflater.getContext());
-        myOpenMapView.setDestroyMode(false);
-        myOpenMapView.setTag("mapView"); // needed for OpenStreetMapViewTest
-
-        return myOpenMapView;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        final Context context = this.getActivity();
-        final DisplayMetrics dm = context.getResources().getDisplayMetrics();
-
-        mPrefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-
-
-        //My Location
-        //note you have handle the permissions yourself, the overlay did not do it for you
-        mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(context), myOpenMapView);
-        mLocationOverlay.enableMyLocation();
-        myOpenMapView.getOverlays().add(this.mLocationOverlay);
-
-
-
-        //Mini map
-        mMinimapOverlay = new MinimapOverlay(context, myOpenMapView.getTileRequestCompleteHandler());
-        mMinimapOverlay.setWidth(dm.widthPixels / 5);
-        mMinimapOverlay.setHeight(dm.heightPixels / 5);
-        myOpenMapView.getOverlays().add(this.mMinimapOverlay);
-
-
-/*
-        //Copyright overlay
-        mCopyrightOverlay = new CopyrightOverlay(context);
-        //i hate this very much, but it seems as if certain versions of android and/or
-        //device types handle screen offsets differently
-        myOpenMapView.getOverlays().add(this.mCopyrightOverlay);
-*/
-
-
-/*
-        //On screen compass
-        mCompassOverlay = new CompassOverlay(context, new InternalCompassOrientationProvider(context),
-                myOpenMapView);
-        mCompassOverlay.enableCompass();
-        myOpenMapView.getOverlays().add(this.mCompassOverlay);
-*/
-
-/*
-        //map scale
-        mScaleBarOverlay = new ScaleBarOverlay(myOpenMapView);
-        mScaleBarOverlay.setCentred(true);
-        mScaleBarOverlay.setScaleBarOffset(dm.widthPixels / 2, 10);
-        myOpenMapView.getOverlays().add(this.mScaleBarOverlay);
-
-*/
-
-        //support for map rotation
-        mRotationGestureOverlay = new RotationGestureOverlay(myOpenMapView);
-        mRotationGestureOverlay.setEnabled(true);
-        myOpenMapView.getOverlays().add(this.mRotationGestureOverlay);
-
-
-        //needed for pinch zooms
-        myOpenMapView.setMultiTouchControls(true);
-
-        //scales tiles to the current screen's DPI, helps with readability of labels
-        myOpenMapView.setTilesScaledToDpi(true);
-
-        //the rest of this is restoring the last map location the user looked at
-        final float zoomLevel = mPrefs.getFloat(PREFS_ZOOM_LEVEL_DOUBLE, 1);
-        myOpenMapView.getController().setZoom(zoomLevel);
-        final float orientation = mPrefs.getFloat(PREFS_ORIENTATION, 0);
-        myOpenMapView.setMapOrientation(orientation, false);
-        final String latitudeString = mPrefs.getString(PREFS_LATITUDE_STRING, "1.0");
-        final String longitudeString = mPrefs.getString(PREFS_LONGITUDE_STRING, "1.0");
-        final double latitude = Double.valueOf(latitudeString);
-        final double longitude = Double.valueOf(longitudeString);
-        myOpenMapView.setExpectedCenter(new GeoPoint(latitude, longitude));
-
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onPause() {
-        //save the current location
-        final SharedPreferences.Editor edit = mPrefs.edit();
-        edit.putString(PREFS_TILE_SOURCE, myOpenMapView.getTileProvider().getTileSource().name());
-        edit.putFloat(PREFS_ORIENTATION, myOpenMapView.getMapOrientation());
-        edit.putString(PREFS_LATITUDE_STRING, String.valueOf(myOpenMapView.getMapCenter().getLatitude()));
-        edit.putString(PREFS_LONGITUDE_STRING, String.valueOf(myOpenMapView.getMapCenter().getLongitude()));
-        edit.putFloat(PREFS_ZOOM_LEVEL_DOUBLE, (float) myOpenMapView.getZoomLevelDouble());
-        edit.commit();
-
-        myOpenMapView.onPause();
-        super.onPause();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        //this part terminates all of the overlays and background threads for osmdroid
-        //only needed when you programmatically create the map
-        myOpenMapView.onDetach();
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        final String tileSourceName = mPrefs.getString(PREFS_TILE_SOURCE,
-                TileSourceFactory.DEFAULT_TILE_SOURCE.name());
-        try {
-            final ITileSource tileSource = TileSourceFactory.getTileSource(tileSourceName);
-            myOpenMapView.setTileSource(tileSource);
-        } catch (final IllegalArgumentException e) {
-            myOpenMapView.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE);
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_map, container, false);
+        mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map_view);
+        if (mapFragment == null) {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            mapFragment = SupportMapFragment.newInstance();
+            fragmentTransaction.replace(R.id.map_view, mapFragment).commit();
         }
+        mapFragment.getMapAsync(this);
 
-        myOpenMapView.onResume();
+        return view;
     }
 
-    public void zoomIn() {
-        myOpenMapView.getController().zoomIn();
+    // ACTUALIZA CADA X LA РOSICIÓN DEL GРS
+    public void buscaLocalizacion() {
+        // Рara que aparezca el botón de localización, el usuario tiene que aceptar los permisos
+        // Comprueba que el usuario tiene permisos de acceso a localización, sinó, se piden.
+        Log.e("ABCD", "Buscando localización.....");
+            mMap.setMyLocationEnabled(true);
+            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+
+            LocationManager locationManager = (LocationManager) getContext().getSystemService(getContext().LOCATION_SERVICE);
+            LocationListener locationListener = new LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+                    Log.e("ABCD", "On Location Changed.....");
+                    LatLng myLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
+
+                    //Animates camera and zooms to preferred state on the user's current location.
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, (float) 15));
+                }
+
+                @Override
+                public void onStatusChanged(String s, int i, Bundle bundle) {
+                }
+
+                @Override
+                public void onProviderEnabled(String s) {
+                }
+
+                @Override
+                public void onProviderDisabled(String s) {
+                }
+            };
+        if(ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+            // Actualiza la posición del GРS, ESTO NO!
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 0, locationListener);
+        }
     }
 
-    public void zoomOut() {
-        myOpenMapView.getController().zoomOut();
+    // Comprueba los permisos del dispositivo, si están dados, devuelve True, sinó, muestra diálogo
+    // y pide acceso, pero también devuelve True
+    private boolean compruebaРermisos() {
+        if(ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        }
+        else {
+            ActivityCompat.requestPermissions(getActivity(), new String[] {
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION },
+                    TAG_CODE_PERMISSION_LOCATION);
+
+        }
+        return true;
     }
 
-    // @Override
-    // public boolean onTrackballEvent(final MotionEvent event) {
-    // return this.myOpenMapView.onTrackballEvent(event);
-    // }
-    public void invalidateMapView() {
-        myOpenMapView.invalidate();
+
+
+    // peticiones de adress to coordinate a oen street maps y seguir utilizando google maps
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        // Obtengo la latitud y longitud del usuario con
+        // https://www.youtube.com/watch?v=pNeuuImirHY
+
+        // Entonces se añaden markers automáticamente
+        // Añadir markers
+        mMap = googleMap;
+
+        // Marcador
+        LatLng Santaco = new LatLng(41.4537951, 2.2091939);
+        infoWindowUser = markerUser = mMap.addMarker(new MarkerOptions().position(Santaco)
+                .title("Casa Santaco")
+                .snippet("Casa")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.instituto)));
+
+        // Cámara
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Santaco,15));
+
+        // Clic en el marcador
+        mMap.setOnMarkerClickListener(this);
+
+        // Dialog de la información del usuario
+        mMap.setOnInfoWindowClickListener(this);
+
+        // http://android-er.blogspot.com/2013/01/display-zoomcontrols-compass-and.html
+        // Iconos zoom OРCIONAL
+        //mMap.getUiSettings().setZoomControlsEnabled(true);
     }
 
+    // NO FUNCIONA
+    // Cuando se pulsa en un marcador del mapa, muestra un Toast con la información del usuario pulsado
+    // En un futuro saldrá un desplegable con la información del usuario.
+    // https://www.youtube.com/watch?v=KL2DCGkGYDQ&list=PL2LFsAM2rdnyWHxGwFrsTXxrGpadj3dP_&index=7
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        //Log.e("ABDC", "Entra en onMarkerClick");
+        if(marker.equals(markerUser)) {
+            //Log.e("ABDC", "Muestra Toast");
+            Toast.makeText(getActivity(), "Has seleccionado: " + marker.getTitle(), Toast.LENGTH_SHORT).show();
+        }
+        else {
+            //Log.e("ABDC", "No muestra Toast");
+        }
+        return false;
+    }
+
+    // NO FUNCIONA
+    // Cuando se pulsa un marcador, muestra la información del usuario
+    // Esto habrá que sustituirlo por una Query a la BD
+    // https://www.youtube.com/watch?v=UeEdMLa6MKw&list=PL2LFsAM2rdnyWHxGwFrsTXxrGpadj3dP_&index=9
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        //Log.e("ABDC", "Entra en onInfoWindowClick");
+        if(marker.equals(infoWindowUser)) {
+          //  Log.e("ABCD", "Muestra info del Marker");
+            UsuarioFragment.newInstance(marker.getTitle(),
+                    "Casa")
+                    .show(getFragmentManager(), null);
+        }
+        else {
+            //Log.e("ABCD", "NO muestra info del Marker");
+        }
+    }
 }

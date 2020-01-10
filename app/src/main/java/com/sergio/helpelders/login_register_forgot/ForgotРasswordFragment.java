@@ -1,6 +1,5 @@
-package com.sergio.helpelders;
+package com.sergio.helpelders.login_register_forgot;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,25 +14,27 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.sergio.helpelders.R;
 
 import java.util.Calendar;
 
 public class ForgotРasswordFragment extends Fragment {
     private ConstraintLayout constraintLayout;
-
     private TextInputEditText nTelfEditText;
-
     private TextView btnGoBack;
 
     public ForgotРasswordFragment() { }
 
-    public void setLoginScreen(@NonNull View view) {
+    private void initWidgets(@NonNull View view) {
         constraintLayout = view.findViewById(R.id.container);
+        btnGoBack = view.findViewById(R.id.btn_volver);
+    }
 
+    private void setForgetPasswordScreen() {
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
 
-        if(timeOfDay >= 0 && timeOfDay < 12) {
+        if(timeOfDay >= 7 && timeOfDay < 12) {
             // Morning
             constraintLayout.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.good_morning_img));
         }
@@ -43,18 +44,14 @@ public class ForgotРasswordFragment extends Fragment {
 
             }
             else {
-                if(timeOfDay >= 20 && timeOfDay <= 24) {
-                    // Night
-                    constraintLayout.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.good_night_img));
-                }
+                // Night
+                constraintLayout.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.good_night_img));
             }
         }
+    }
 
-        if(Build.VERSION.SDK_INT >= 21) {
-            view.setSystemUiVisibility(View.GONE);
-
-        }
-
+    private void setListeners() {
+        btnGoBack.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.loginFragment));
     }
 
 
@@ -67,7 +64,8 @@ public class ForgotРasswordFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        btnGoBack = view.findViewById(R.id.btn_volver);
-        btnGoBack.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.loginFragment));
+        initWidgets(view);
+        setForgetPasswordScreen();
+        setListeners();
     }
 }

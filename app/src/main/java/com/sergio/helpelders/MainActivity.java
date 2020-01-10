@@ -16,15 +16,14 @@ import com.sergio.helpelders.viewmodel.AutenticacionViewModel;
 // https://github.com/gerardfp/P9/tree/master/app/src/main/java/com/company/p9
 public class MainActivity extends AppCompatActivity {
     private NavController navController;
-    private AutenticacionViewModel autenticacionViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        AutenticacionViewModel autenticacionViewModel;
         autenticacionViewModel = ViewModelProviders.of(this).get(AutenticacionViewModel.class);
-
         autenticacionViewModel.mostrarUsuarios();
 
         // NavController
@@ -36,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(bottomNavView, navController);
 
         // Toolbar superior
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.superiorBar);
+        Toolbar myToolbar = findViewById(R.id.superiorBar);
         setSupportActionBar(myToolbar);
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
