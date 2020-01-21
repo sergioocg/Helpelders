@@ -1,11 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#03A9F4</color>
+    <color name="colorPrimaryDark">#03A9F4</color>
+    <color name="colorAccent">#03A9F4</color>
     <color name="black_overlay">#66000000</color>
 
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorTransparentWhite">#CCCCCC</color>
+    <color name="colorBlack">#464646</color>
+
+    <!-- Perfil -->
+    <color name="colorLayerBack">#8A56AB</color>
+    <color name="colorBack">#241333</color>
+    <color name="colorTitle">#362742</color>
+    <color name="colorSubtitle">#C5C9CF</color>
+
+    <!-- Timeline -->
+    <color name="colorGreen">#77D981</color>
+    <color name="colorLightBlue">#5F5881</color>
+    <color name="colorDarkGrey">#D5D5D5</color>
+    <color name="colorYellow">#FFC107</color>
+    <color name="colorRed">#FF3030</color>
+
 
 </resources>

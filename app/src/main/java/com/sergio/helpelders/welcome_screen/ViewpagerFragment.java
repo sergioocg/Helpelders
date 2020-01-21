@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
 import com.sergio.helpelders.R;
 
 // https://www.youtube.com/watch?v=byLKoPgB7yA
@@ -75,8 +76,8 @@ public class ViewpagerFragment extends Fragment {
             public void onClick(View v) {
                 slideViewPager.setCurrentItem(currentPage + 1);
 
-                Log.i("PAGE", "Página: " + currentPage);
-                if(currentPage == 2) {
+                // Se oculta nextButton y se mete Login button??, sino cuando llega a la 3ª pantalla, se la salta directamente
+                if(nextBtn.getText().toString().equals("Iniciar")) {
                     Navigation.findNavController(view).navigate(R.id.loginFragment);
                 }
             }
@@ -88,8 +89,6 @@ public class ViewpagerFragment extends Fragment {
                 slideViewPager.setCurrentItem(currentPage - 1);
             }
         });
-
-        // Falta finish y skip
     }
 
     public void addDotsIndicator(int position) {

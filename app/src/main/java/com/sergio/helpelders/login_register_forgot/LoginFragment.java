@@ -24,6 +24,8 @@ import com.sergio.helpelders.viewmodel.AutenticacionViewModel;
 
 import java.util.Calendar;
 
+import es.dmoral.toasty.Toasty;
+
 public class LoginFragment extends Fragment {
     /**
      * Atributos
@@ -99,7 +101,7 @@ public class LoginFragment extends Fragment {
                         break;
 
                     case AUTENTICACION_INVALIDA:
-                        Toast.makeText(getContext(), "CREDENCIALES NO VALIDAS", Toast.LENGTH_SHORT).show();
+                        Toasty.error(getContext(), "CREDENCIALES NO VALIDAS", Toast.LENGTH_SHORT).show();
                         break;
                 }
             });

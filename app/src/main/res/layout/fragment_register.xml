@@ -47,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_person_white_24dp"
                 android:hint="Nombre"
+                android:singleLine="true"
                 android:textColor="#FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -63,6 +64,7 @@
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_person_white_24dp"
                 android:hint="Apellidos"
+                android:singleLine="true"
                 android:textColor="#FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_date_white_24dp"
                 android:hint="Fecha de nacimiento"
+                android:singleLine="true"
                 android:textColor="#FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
@@ -121,6 +124,7 @@
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_direction_white_24dp"
                 android:hint="Dirección"
+                android:singleLine="true"
                 android:textColor="#FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -141,6 +145,7 @@
                     android:layout_height="wrap_content"
                     android:drawableEnd="@drawable/ic_direction_white_24dp"
                     android:hint="Localidad"
+                    android:singleLine="true"
                     android:textColor="#FFFFFF" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -158,6 +163,7 @@
                     android:drawableEnd="@drawable/ic_direction_white_24dp"
                     android:hint="CP"
                     android:inputType="number"
+                    android:singleLine="true"
                     android:textColor="#FFFFFF" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -191,6 +197,8 @@
                 android:drawableEnd="@drawable/ic_phone_white_4dp"
                 android:hint="Número de teléfono"
                 android:inputType="phone"
+                android:phoneNumber="true"
+                android:singleLine="true"
                 android:textColor="#FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -206,8 +214,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_lock_white_24dp"
-                android:inputType="textPassword"
                 android:hint="Contraseña"
+                android:inputType="textPassword"
+                android:password="true"
+                android:singleLine="true"
                 android:textColor="#FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>

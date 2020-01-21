@@ -93,3 +93,23 @@ dependencies {
 dependencies {
     implementation 'androidx.legacy:legacy-support-v4:+'
 }
+
+dependencies {
+    implementation 'androidx.legacy:legacy-support-v4:+'
+}
+
+dependencies {
+    implementation 'androidx.legacy:legacy-support-v4:+'
+}
+
+// Librerías externas
+dependencies {
+    // Bottom bar
+    implementation 'com.github.armcha:SpaceNavigationView:1.6.0'
+    // Toast
+    implementation 'com.github.GrenderG:Toasty:1.4.2'
+    // EditText
+    implementation 'com.github.florent37:materialtextfield:1.0.7'
+    // Perfil Circular ImageView
+    implementation 'com.mikhaellopez:circularimageview:3.2.0'
+}

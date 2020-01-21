@@ -46,6 +46,12 @@
         <action
             android:id="@+id/action_homeFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_messageFragment"
+            app:destination="@id/messageFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/forgotРasswordFragment"
@@ -61,9 +67,19 @@
         android:id="@+id/viewpagerFragment"
         android:name="com.sergio.helpelders.welcome_screen.ViewpagerFragment"
         android:label="fragment_viewpager"
-        tools:layout="@layout/fragment_viewpager" >
+        tools:layout="@layout/fragment_viewpager">
         <action
             android:id="@+id/action_viewpagerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.sergio.helpelders.home.bottom_bar_navigation.profileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/messageFragment"
+        android:name="com.sergio.helpelders.home.bottom_bar_navigation.messageFragment"
+        android:label="fragment_message"
+        tools:layout="@layout/fragment_message" />
 </navigation>

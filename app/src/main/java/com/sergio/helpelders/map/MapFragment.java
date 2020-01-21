@@ -54,15 +54,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
                 Navigation.findNavController(view).navigate(R.id.homeFragment);
             }
         });
-
-        view.findViewById(R.id.boton_localizacion).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.e("ABDC", "Botón GРS pulsado");
-                buscaLocalizacion();
-            }
-        });
-
     }
 
     @Override
