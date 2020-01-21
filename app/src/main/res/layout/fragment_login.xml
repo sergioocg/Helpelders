@@ -8,6 +8,7 @@
     tools:context=".login_register_forgot.LoginFragment"
     android:id="@+id/container">
 
+    <!-- Lorem -->
     <TextView
         android:id="@+id/text_titulo"
         android:layout_width="wrap_content"

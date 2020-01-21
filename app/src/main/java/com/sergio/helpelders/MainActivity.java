@@ -13,6 +13,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sergio.helpelders.viewmodel.AutenticacionViewModel;
 
+import me.ibrahimsn.lib.SmoothBottomBar;
+
 // https://github.com/gerardfp/P9/tree/master/app/src/main/java/com/company/p9
 public class MainActivity extends AppCompatActivity {
     private NavController navController;
@@ -26,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
         autenticacionViewModel = ViewModelProviders.of(this).get(AutenticacionViewModel.class);
         autenticacionViewModel.mostrarUsuarios();
 
+
+        /**
+         * Explica que hace
+         * @navController Contiene
+         */
         // NavController
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         navController.navigate(R.id.welcomeFragment);

@@ -23,6 +23,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -92,33 +93,33 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         // Рara que aparezca el botón de localización, el usuario tiene que aceptar los permisos
         // Comprueba que el usuario tiene permisos de acceso a localización, sinó, se piden.
         Log.e("ABCD", "Buscando localización.....");
-            mMap.setMyLocationEnabled(true);
-            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+        mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
-            LocationManager locationManager = (LocationManager) getContext().getSystemService(getContext().LOCATION_SERVICE);
-            LocationListener locationListener = new LocationListener() {
-                @Override
-                public void onLocationChanged(Location location) {
-                    Log.e("ABCD", "On Location Changed.....");
-                    LatLng myLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
+        LocationManager locationManager = (LocationManager) getContext().getSystemService(getContext().LOCATION_SERVICE);
+        LocationListener locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                Log.e("ABCD", "On Location Changed.....");
+                LatLng myLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
 
-                    //Animates camera and zooms to preferred state on the user's current location.
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, (float) 15));
-                }
+                //Animates camera and zooms to preferred state on the user's current location.
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, (float) 15));
+            }
 
-                @Override
-                public void onStatusChanged(String s, int i, Bundle bundle) {
-                }
+            @Override
+            public void onStatusChanged(String s, int i, Bundle bundle) {
+            }
 
-                @Override
-                public void onProviderEnabled(String s) {
-                }
+            @Override
+            public void onProviderEnabled(String s) {
+            }
 
-                @Override
-                public void onProviderDisabled(String s) {
-                }
-            };
+            @Override
+            public void onProviderDisabled(String s) {
+            }
+        };
         if(ContextCompat.checkSelfPermission(getActivity(),
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                 && ContextCompat.checkSelfPermission(getActivity(),
@@ -206,7 +207,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     public void onInfoWindowClick(Marker marker) {
         //Log.e("ABDC", "Entra en onInfoWindowClick");
         if(marker.equals(infoWindowUser)) {
-          //  Log.e("ABCD", "Muestra info del Marker");
+            //  Log.e("ABCD", "Muestra info del Marker");
             UsuarioFragment.newInstance(marker.getTitle(),
                     "Casa")
                     .show(getFragmentManager(), null);
