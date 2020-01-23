@@ -2,39 +2,45 @@ package com.sergio.helpelders.login_register_forgot;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.ornach.nobobutton.NoboButton;
 import com.sergio.helpelders.R;
-import com.sergio.helpelders.viewmodel.AutenticacionViewModel;
 
 import java.util.Calendar;
 
 import es.dmoral.toasty.Toasty;
+
 
 public class LoginFragment extends Fragment {
     /**
      * Atributos
      */
     private ConstraintLayout constraintLayout;
-    private AutenticacionViewModel autenticacionViewModel;
-    private TextInputEditText nTelfEditText, passEditText;
-    private Button loginButton, registerButton;
+    private TextInputEditText emailEditText, passEditText;
+    private NoboButton loginButton, registerButton;
     private TextView forgotPass, tituloTextView;
+
+    private FirebaseAuth mAuth;
+
+    private String email, pass;
 
     /**
      * Constructor
@@ -48,14 +54,14 @@ public class LoginFragment extends Fragment {
         constraintLayout = view.findViewById(R.id.container);
         tituloTextView = view.findViewById(R.id.text_titulo);
 
-        nTelfEditText = view.findViewById(R.id.text_ntelf);
-        passEditText = view.findViewById(R.id.text_contrasena);
+        emailEditText = view.findViewById(R.id.text_email);
+        passEditText = view.findViewById(R.id.text_pass);
 
         loginButton = view.findViewById(R.id.btn_iniciar);
         registerButton = view.findViewById(R.id.btn_registrar);
         forgotPass = view.findViewById(R.id.btn_recuperar_contrasena);
 
-        autenticacionViewModel = ViewModelProviders.of(requireActivity()).get(AutenticacionViewModel.class);
+        mAuth = FirebaseAuth.getInstance();
     }
 
     /**
@@ -68,7 +74,7 @@ public class LoginFragment extends Fragment {
     private void setLoginScreen() {
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
-        Log.i("TIME", String.valueOf(timeOfDay));
+        //Log.i("TIME", String.valueOf(timeOfDay));
 
         if(timeOfDay >= 7 && timeOfDay < 12) {
             // Morning
@@ -91,23 +97,89 @@ public class LoginFragment extends Fragment {
     private void setListeners() {
         registerButton.setOnClickListener(view12 -> Navigation.findNavController(view12).navigate(R.id.registerFragment));
 
-        loginButton.setOnClickListener(view1 -> {
-            autenticacionViewModel.iniciarSesion(nTelfEditText.getText().toString(), passEditText.getText().toString());
-
-            autenticacionViewModel.estadoDeLaAutenticacion.observe(getViewLifecycleOwner(), estadoDeLaAutenticacion -> {
-                switch(estadoDeLaAutenticacion){
-                    case AUTENTICADO:
-                        Navigation.findNavController(view1).navigate(R.id.homeFragment);
-                        break;
-
-                    case AUTENTICACION_INVALIDA:
-                        Toasty.error(getContext(), "CREDENCIALES NO VALIDAS", Toast.LENGTH_SHORT).show();
-                        break;
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(comprobarEmail()) {
+                    if(comprobarPass()) {
+                        iniciarUsuarioFirebase();
+                    }
                 }
-            });
+            }
         });
 
         forgotPass.setOnClickListener(view13 -> Navigation.findNavController(view13).navigate(R.id.forgotРasswordFragment));
+    }
+
+    private boolean comprobarEmail() {
+        boolean userOk = false;
+
+        try {
+            email = emailEditText.getText().toString();
+            //Log.e("LOGIN", "Email: " + email.length());
+
+            if(email.length() == 0) { // Email vacío
+                emailEditText.requestFocus();
+                Toasty.error(getContext(), "El email no puede estar vacío").show();
+            }
+            else {
+                if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    emailEditText.requestFocus();
+                    Toasty.error(getContext(), "Email invalido").show();
+                }
+                else {
+                    userOk = true;
+                    passEditText.requestFocus();
+                }
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return userOk;
+    }
+
+    private boolean comprobarPass() {
+        boolean passOk = false;
+
+        try {
+            pass = passEditText.getText().toString();
+
+            if(pass.length() == 0) { // Email vacío
+                passEditText.requestFocus();
+                Toasty.error(getContext(), "La contraseña no puede estar vacía").show();
+            }
+            else {
+                if(pass.length() < 6) {
+                    passEditText.requestFocus();
+                    Toasty.error(getContext(), "La contraseña debe tener 6 carácteres").show();
+                }
+                else {
+                    passOk = true;
+                }
+            }
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return passOk;
+    }
+
+    public void iniciarUsuarioFirebase() {
+        mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()) {
+                    Toasty.success(getContext(), "Usuario correcto").show();
+                    Navigation.findNavController(getView()).navigate(R.id.homeFragment);
+                }
+                else {
+                    // / Mostrar AlerDiaglo, quieres registrarte, y llevar a Registrar,
+                    Toasty.error(getContext(), "Credenciales invalidas").show();
+                }
+            }
+        });
 
     }
 
@@ -130,5 +202,6 @@ public class LoginFragment extends Fragment {
         setInitWidgets(view);
         setLoginScreen();
         setListeners();
+
     }
 }

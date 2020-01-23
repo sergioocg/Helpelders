@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/good_morning_img"
-    tools:context=".login_register_forgot.LoginFragment"
     android:id="@+id/container">
 
     <!-- Lorem -->
@@ -24,79 +23,93 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Nº de teléfono -->
     <com.github.florent37.materialtextfield.MaterialTextField
-        android:id="@+id/text_layout_telf"
+        android:id="@+id/text_layout_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:autofillHints="Email"
+        app:mtf_cardCollapsedHeight="2dp"
         android:textColorHint="#FFFFFF"
-        android:theme="@style/myEditTextStyle"
-        app:layout_constraintBottom_toTopOf="@+id/text_layout_contrasena"
+        android:background="@color/space_transparent"
+        app:mtf_image="@drawable/ic_email_black_24dp"
+        app:layout_constraintBottom_toTopOf="@+id/text_layout_pass"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/text_ntelf"
+            android:id="@+id/text_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/ic_phone_white_4dp"
-            android:hint="Nº de teléfono"
-            android:inputType="phone"
+            android:inputType="textEmailAddress"
+            android:hint="Email"
             android:singleLine="true"
-            android:textColor="#FFFFFF" />
+            android:textColor="@color/colorBack"/>
     </com.github.florent37.materialtextfield.MaterialTextField>
 
-
+    <!-- Código de verificación -->
     <com.github.florent37.materialtextfield.MaterialTextField
-        android:id="@+id/text_layout_contrasena"
+        android:id="@+id/text_layout_pass"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:background="@color/space_transparent"
         android:textColorHint="#FFFFFF"
-        android:theme="@style/myEditTextStyle"
+        app:mtf_cardCollapsedHeight="2dp"
+        app:mtf_image="@drawable/ic_lock_black_24dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_registrar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/text_contrasena"
+            android:id="@+id/text_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/ic_lock_white_24dp"
-            android:hint="Contraseña"
             android:inputType="textPassword"
+            android:hint="Constraseña"
             android:singleLine="true"
-            android:textColor="#FFFFFF" />
+            android:textColor="@color/colorBack"/>
 
     </com.github.florent37.materialtextfield.MaterialTextField>
 
-    <Button
+    <com.ornach.nobobutton.NoboButton
         android:id="@+id/btn_registrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/bg_button_white"
         android:padding="15dp"
-        android:text="Registrarse"
-        android:textColor="#FFFFFF"
+        app:nb_text="Registrarse"
+        app:nb_textAllCaps="true"
+        app:nb_borderColor="#FFFFFF"
+        app:nb_borderWidth="2dp"
+        app:nb_backgroundColor="#3DD682"
+        app:nb_textColor="#FFF"
+        app:nb_radius="2dp"
+        app:nb_fontIcon="&#xf102;"
         app:layout_constraintBottom_toTopOf="@+id/btn_recuperar_contrasena"
         app:layout_constraintEnd_toStartOf="@+id/btn_iniciar"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <com.ornach.nobobutton.NoboButton
         android:id="@+id/btn_iniciar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/bg_button_white"
         android:padding="15dp"
-        android:text="Iniciar sesión"
-        android:textColor="#FFFFFF"
+        app:nb_text="Iniciar sesión"
+        app:nb_textAllCaps="true"
+        app:nb_borderColor="#FFFFFF"
+        app:nb_borderWidth="2dp"
+        app:nb_backgroundColor="#3DD682"
+        app:nb_textColor="#FFF"
+        app:nb_radius="2dp"
+        app:nb_fontIcon="&#xf00c;"
         app:layout_constraintBottom_toTopOf="@+id/btn_recuperar_contrasena"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -115,6 +128,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

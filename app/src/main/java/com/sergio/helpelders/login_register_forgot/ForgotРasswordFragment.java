@@ -1,5 +1,6 @@
 package com.sergio.helpelders.login_register_forgot;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.sergio.helpelders.R;
 
 import java.util.Calendar;
@@ -22,6 +24,8 @@ public class ForgotРasswordFragment extends Fragment {
     private ConstraintLayout constraintLayout;
     private TextInputEditText nTelfEditText;
     private TextView btnGoBack;
+
+    SweetAlertDialog pDialog;
 
     public ForgotРasswordFragment() { }
 
@@ -51,7 +55,7 @@ public class ForgotРasswordFragment extends Fragment {
     }
 
     private void setListeners() {
-        btnGoBack.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.loginFragment));
+        btnGoBack.setOnClickListener(view1 -> getActivity().getSupportFragmentManager().popBackStack());
     }
 
 
@@ -66,6 +70,25 @@ public class ForgotРasswordFragment extends Fragment {
 
         initWidgets(view);
         setForgetPasswordScreen();
+
+        if(!nTelfEditText.getText().toString().isEmpty()) {
+            pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE);
+
+            pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+            pDialog.setTitleText("Reiniciando... ");
+            pDialog.setCancelable(false);
+            pDialog.show();
+
+            pDialog.setTitleText("¡Buen trabajo!")
+                    .setContentText("¡Te acabamos de enviar un sms con la contraseña!")
+                    .show();
+        }
+        else {
+            pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE);
+            pDialog.setTitleText("Oops...")
+                    .setContentText("¡Introduce tu número de teléfono!")
+                    .show();
+        }
         setListeners();
     }
 }

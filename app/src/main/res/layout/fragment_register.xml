@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
@@ -9,101 +9,171 @@
     android:orientation="vertical"
     tools:context=".login_register_forgot.LoginFragment">
 
-    <TextView
+    <ImageView
         android:id="@+id/btn_volver"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@drawable/icono_volver"
+        android:layout_margin="10dp"
+        android:src="@drawable/icono_volver"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginBottom="20dp"/>
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/linearPadre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/ll1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="40dp"
         android:background="@drawable/bg_button_semiwhite"
         android:orientation="vertical"
-        android:padding="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_volver">
+        android:padding="15dp">
 
-        <com.google.android.material.textfield.TextInputLayout
+        <com.github.florent37.materialtextfield.MaterialTextField
             android:id="@+id/text_layout_nombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#FFFFFF"
+            app:mtf_image="@drawable/ic_person_black_24dp"
+            app:mtf_cardCollapsedHeight="2dp"
             android:theme="@style/myEditTextStyle">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/text_nombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_person_white_24dp"
                 android:hint="Nombre"
                 android:singleLine="true"
-                android:textColor="#FFFFFF" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:textColor="@color/colorBack" />
+        </com.github.florent37.materialtextfield.MaterialTextField>
 
-        <com.google.android.material.textfield.TextInputLayout
+        <com.github.florent37.materialtextfield.MaterialTextField
             android:id="@+id/text_layout_apellidos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#FFFFFF"
+            app:mtf_cardCollapsedHeight="2dp"
+            android:layout_marginTop="10dp"
+            app:mtf_image="@drawable/ic_person_black_24dp"
             android:theme="@style/myEditTextStyle">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/text_apellidos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_person_white_24dp"
                 android:hint="Apellidos"
-                android:singleLine="true"
-                android:textColor="#FFFFFF" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:textColor="@color/colorBack"
+                android:singleLine="true"/>
+        </com.github.florent37.materialtextfield.MaterialTextField>
 
-        <com.google.android.material.textfield.TextInputLayout
+        <com.github.florent37.materialtextfield.MaterialTextField
             android:id="@+id/text_layout_fechanac"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#FFFFFF"
+            app:mtf_cardCollapsedHeight="2dp"
+            android:layout_marginTop="10dp"
+            app:mtf_image="@drawable/ic_date_black_24dp"
             android:theme="@style/myEditTextStyle">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/text_fechanac"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_date_white_24dp"
                 android:hint="Fecha de nacimiento"
-                android:singleLine="true"
-                android:textColor="#FFFFFF" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+                android:textColor="@color/colorBack" />
+                android:singleLine="true"/>
+        </com.github.florent37.materialtextfield.MaterialTextField>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/ic_direction_white_24dp"
-        app:layout_constraintBottom_toTopOf="@+id/ll2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll1" />
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:checkedButton="@id/male">
+
+            <RadioButton
+                android:id="@+id/male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
+                android:theme="@style/myEditTextStyle"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_black_male"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
+                android:theme="@style/myEditTextStyle"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_black_female"/>
+
+        </RadioGroup>
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:checkedButton="@id/abuelo">
+
+                <RadioButton
+                    android:id="@+id/abuelo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorWhite"
+                    android:theme="@style/myEditTextStyle"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_black_elder"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/myEditTextStyle"
+                    android:textColor="@color/colorWhite"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_black_volunteer"/>
+
+            </RadioGroup>
+
+
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/bg_button_semiwhite"
         android:orientation="vertical"
         android:padding="15dp"
@@ -111,61 +181,64 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ll1">
 
-        <com.google.android.material.textfield.TextInputLayout
+        <com.github.florent37.materialtextfield.MaterialTextField
             android:id="@+id/text_layout_direccion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#FFFFFF"
+            app:mtf_cardCollapsedHeight="2dp"
+            app:mtf_image="@drawable/ic_directions_black_24dp"
             android:theme="@style/myEditTextStyle">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/text_direccion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_direction_white_24dp"
                 android:hint="Dirección"
                 android:singleLine="true"
-                android:textColor="#FFFFFF" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:textColor="@color/colorBack"/>
+        </com.github.florent37.materialtextfield.MaterialTextField>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.google.android.material.textfield.TextInputLayout
+            <com.github.florent37.materialtextfield.MaterialTextField
                 android:id="@+id/text_layout_direccion_localidad"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
+                app:mtf_cardCollapsedHeight="2dp"
+                android:layout_marginTop="10dp"
+                app:mtf_image="@drawable/ic_directions_black_24dp"
                 android:theme="@style/myEditTextStyle">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/text_direccion_localidad"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableEnd="@drawable/ic_direction_white_24dp"
                     android:hint="Localidad"
                     android:singleLine="true"
-                    android:textColor="#FFFFFF" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:textColor="@color/colorBack"/>
+            </com.github.florent37.materialtextfield.MaterialTextField>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <com.github.florent37.materialtextfield.MaterialTextField
                 android:id="@+id/text_layout_direccion_cp"
-                android:layout_width="100dp"
+                android:layout_width="125dp"
                 android:layout_height="wrap_content"
-                android:textColorHint="#FFFFFF"
+                app:mtf_cardCollapsedHeight="2dp"
+                android:layout_marginTop="10dp"
+                app:mtf_image="@drawable/ic_directions_black_24dp"
                 android:theme="@style/myEditTextStyle">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/text_direccion_cp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableEnd="@drawable/ic_direction_white_24dp"
                     android:hint="CP"
                     android:inputType="number"
                     android:singleLine="true"
-                    android:textColor="#FFFFFF" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:textColor="@color/colorBack"/>
+            </com.github.florent37.materialtextfield.MaterialTextField>
         </LinearLayout>
     </LinearLayout>
 
@@ -183,56 +256,69 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ll2">
 
-        <com.google.android.material.textfield.TextInputLayout
+        <com.github.florent37.materialtextfield.MaterialTextField
             android:id="@+id/text_layou_ntelf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#FFFFFF"
+            app:mtf_cardCollapsedHeight="2dp"
+            app:mtf_image="@drawable/ic_email_black_24dp"
             android:theme="@style/myEditTextStyle">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/text_ntelf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_phone_white_4dp"
-                android:hint="Número de teléfono"
-                android:inputType="phone"
-                android:phoneNumber="true"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
                 android:singleLine="true"
-                android:textColor="#FFFFFF" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:textColor="@color/colorBack"/>
+        </com.github.florent37.materialtextfield.MaterialTextField>
 
-        <com.google.android.material.textfield.TextInputLayout
+        <com.github.florent37.materialtextfield.MaterialTextField
             android:id="@+id/text_layout_contrasena"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#FFFFFF"
+            app:mtf_cardCollapsedHeight="2dp"
+            android:layout_marginTop="10dp"
+            app:mtf_image="@drawable/ic_lock_black_24dp"
             android:theme="@style/myEditTextStyle">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/text_contrasena"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_lock_white_24dp"
                 android:hint="Contraseña"
                 android:inputType="textPassword"
-                android:password="true"
                 android:singleLine="true"
-                android:textColor="#FFFFFF" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:textColor="@color/colorBack"/>
+        </com.github.florent37.materialtextfield.MaterialTextField>
+
+
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_registrar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_button_white"
-        android:padding="15dp"
-        android:text="Registrar"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll3" />
+            <com.ornach.nobobutton.NoboButton
+                android:id="@+id/btn_registrar"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                app:nb_text="Registrar"
+                app:nb_borderColor="#FFFFFF"
+                app:nb_borderWidth="2dp"
+                app:nb_backgroundColor="#3DD682"
+                app:nb_textColor="#FFF"
+                app:nb_radius="2dp"
+                app:nb_textAllCaps="true"
+                app:nb_fontIcon="&#xf007;"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll3"
+                android:layout_marginBottom="20dp"/>
+        </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

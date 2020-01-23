@@ -31,7 +31,7 @@ public class ViewpagerFragment extends Fragment {
 
     private TextView[] dots;
 
-    private Button backBtn, nextBtn, skipBtn;
+    private Button backBtn, nextBtn, skipBtn, iniciarButton;
     private int currentPage;
 
 
@@ -61,6 +61,7 @@ public class ViewpagerFragment extends Fragment {
         backBtn = view.findViewById(R.id.prevButton);
         nextBtn = view.findViewById(R.id.nextButton);
         skipBtn = view.findViewById(R.id.skipButton);
+        iniciarButton = view.findViewById(R.id.iniciarButton);
 
         // OnClickListeners
         skipBtn.setOnClickListener(new View.OnClickListener() {
@@ -75,11 +76,6 @@ public class ViewpagerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 slideViewPager.setCurrentItem(currentPage + 1);
-
-                // Se oculta nextButton y se mete Login button??, sino cuando llega a la 3ª pantalla, se la salta directamente
-                if(nextBtn.getText().toString().equals("Iniciar")) {
-                    Navigation.findNavController(view).navigate(R.id.loginFragment);
-                }
             }
         });
 
@@ -87,6 +83,13 @@ public class ViewpagerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 slideViewPager.setCurrentItem(currentPage - 1);
+            }
+        });
+
+        iniciarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.loginFragment);
             }
         });
     }
@@ -130,12 +133,15 @@ public class ViewpagerFragment extends Fragment {
             }
             else {
                 if(position == (dots.length - 1)) {
-                    nextBtn.setEnabled(true);
+                    nextBtn.setEnabled(false);
                     backBtn.setEnabled(true);
                     backBtn.setVisibility(View.VISIBLE);
 
-                    nextBtn.setText("Iniciar");
+                    nextBtn.setText("");
                     backBtn.setText("Volver");
+
+                    iniciarButton.setEnabled(true);
+                    iniciarButton.setVisibility(View.VISIBLE);
                 }
                 else {
                     nextBtn.setEnabled(true);

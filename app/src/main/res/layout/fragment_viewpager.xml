@@ -33,7 +33,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:background="@android:color/transparent"
-        android:text="Back"
+        android:text="Volver"
         android:textColor="@color/colorWhite"
         android:visibility="invisible"
         app:cornerRadius="20dp" />
@@ -45,9 +45,22 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:background="@android:color/transparent"
-        android:text="Next"
+        android:text="Siguiente"
         app:cornerRadius="20dp"
         android:textColor="@color/colorWhite" />
+
+    <Button
+        android:id="@+id/iniciarButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/transparent"
+        android:text="Iniciar"
+        app:cornerRadius="20dp"
+        android:visibility="invisible"
+        android:textColor="@color/colorWhite" />
+
 
     <Button
         android:id="@+id/skipButton"
