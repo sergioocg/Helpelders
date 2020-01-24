@@ -22,37 +22,30 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.sergio.helpelders.R;
+import com.sergio.helpelders.Util;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class ProfileFragment extends Fragment {
-    private TextView nombreTextView, btnVerPerfil;
-    private ImageView btnGoBack;
-    private LinearLayout lCerrarSesion;
+public class ProfileFragment extends Util {
+    /**
+     * Atributos
+     */
+    private TextView btnVerPerfil;
 
+    /**
+     * Constructor
+     */
     public ProfileFragment() {}
 
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+    /**
+     * Métodos
+     */
+    private void setInitWidgets(View view) {
+        nombreApellidosTextView = view.findViewById(R.id.nombre);
+        btnVerPerfil = view.findViewById(R.id.verPefilCompleto);
+        linearLayout = view.findViewById(R.id.linearCerrarSesion);
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        btnGoBack = view.findViewById(R.id.btn_volver);
-        btnGoBack.setOnClickListener(view1 -> Navigation.findNavController(view1).popBackStack());
-
-        nombreTextView = view.findViewById(R.id.nombre);
-        btnVerPerfil = view.findViewById(R.id.verPefilCompleto);
-        lCerrarSesion = view.findViewById(R.id.linearCerrarSesion);
-
+    private void setListeners(View view) {
         btnVerPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,25 +53,40 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        FirebaseFirestore fStore = FirebaseFirestore.getInstance();
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                Navigation.findNavController(v).navigate(R.id.loginFragment);
+            }
+        });
+    }
 
-        DocumentReference user = fStore.collection("usuarios").document(mAuth.getCurrentUser().getEmail());
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_profile, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        setInitWidgets(view);
+        setListeners(view);
+
+        fStore = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+
+        user = fStore.collection("usuarios").document(mAuth.getCurrentUser().getEmail());
         user.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful()) {
                     DocumentSnapshot doc = task.getResult();
-                    nombreTextView.setText(doc.getString("nombre") + " " + doc.getString("apellidos"));
+                    nombreApellidosTextView.setText(doc.getString("nombre") + " " + doc.getString("apellidos"));
                 }
-            }
-        });
-
-        lCerrarSesion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-                Navigation.findNavController(v).navigate(R.id.loginFragment);
             }
         });
     }

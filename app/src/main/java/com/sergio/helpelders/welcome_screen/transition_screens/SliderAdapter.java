@@ -15,6 +15,8 @@ import com.sergio.helpelders.R;
 
 // https://www.youtube.com/watch?v=byLKoPgB7yA
 
+// https://www.youtube.com/watch?v=R_AIUy7tFVA es mejor
+
 public class SliderAdapter extends PagerAdapter {
     Context context;
     LayoutInflater layoutInflater;

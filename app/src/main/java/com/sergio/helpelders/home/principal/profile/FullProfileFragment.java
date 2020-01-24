@@ -5,44 +5,28 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.sergio.helpelders.R;
+import com.sergio.helpelders.Util;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
-public class FullProfileFragment extends Fragment {
-    private ImageView btnVolver;
-    private TextView nombreApellidosTextView, localidadTextView, fechaNacTextView,
+public class FullProfileFragment extends Util {
+    private TextView localidadTextView, fechaNacTextView,
             direccionTextView, codPostTextView, sexoTextView, tipoUsuarioTextView, emailTextView;
 
     public FullProfileFragment() {}
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_full_profile, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        btnVolver = view.findViewById(R.id.btn_volver);
+    private void setInitWidgets(View view) {
+        volverButton = view.findViewById(R.id.btn_volver);
         nombreApellidosTextView = view.findViewById(R.id.nombre_apellidos);
         localidadTextView = view.findViewById(R.id.localidad);
         fechaNacTextView = view.findViewById(R.id.fechaNacimiento);
@@ -52,18 +36,23 @@ public class FullProfileFragment extends Fragment {
         tipoUsuarioTextView = view.findViewById(R.id.tipoUsuario);
         emailTextView = view.findViewById(R.id.email);
 
+        mAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+    }
 
-        btnVolver.setOnClickListener(new View.OnClickListener() {
+    private void setListeners() {
+        volverButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).popBackStack();
             }
         });
+    }
 
-        FirebaseFirestore fStore = FirebaseFirestore.getInstance();
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
-        DocumentReference user = fStore.collection("usuarios").document(mAuth.getCurrentUser().getEmail());
+    // Creo una colección llamada usuarios, y cada usuario será identificado con el email.
+    // Así en Authentication de Firebase es más sencillo de identificar.
+    private void rellenarPerfil() {
+        user = fStore.collection("usuarios").document(mAuth.getCurrentUser().getEmail());
         user.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -81,5 +70,20 @@ public class FullProfileFragment extends Fragment {
                 }
             }
         });
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_full_profile, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        setInitWidgets(view);
+        setListeners();
+        rellenarPerfil();
     }
 }

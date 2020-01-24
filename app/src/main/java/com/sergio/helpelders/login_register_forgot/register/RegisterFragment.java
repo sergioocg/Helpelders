@@ -1,6 +1,7 @@
 package com.sergio.helpelders.login_register_forgot.register;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -15,6 +16,7 @@ import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -29,6 +31,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.ornach.nobobutton.NoboButton;
 import com.sergio.helpelders.R;
+import com.sergio.helpelders.Util;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -38,23 +41,10 @@ import java.util.Map;
 
 import es.dmoral.toasty.Toasty;
 
-public class RegisterFragment extends Fragment {
-    private LinearLayout linearLayout;
-
-
-    private ImageView volverButton;
+public class RegisterFragment extends Util {
     private EditText nombreEditText, apellidosEditText, direccionEditText, cpEditText, localidadEditText, fechaNacEditText, emailEditText, passEditText;
     private NoboButton registerButton;
-    private RadioButton hombreRb, mujerRb, abueloRb, voluntarioRb;
-
-    final Calendar myCalendar = Calendar.getInstance();
-
-    private FirebaseAuth mAuth;
-    private FirebaseFirestore fStore;
-    private Boolean usuarioOk = false;
-
-    private String email, pass;
-
+    private RadioButton hombreRb, abueloRb;
 
     private void setInitWidgets(@NonNull View view) {
         linearLayout = view.findViewById(R.id.container);
@@ -76,34 +66,7 @@ public class RegisterFragment extends Fragment {
         registerButton = view.findViewById(R.id.btn_registrar);
 
         hombreRb = view.findViewById(R.id.hombre);
-        mujerRb = view.findViewById(R.id.mujer);
-
         abueloRb = view.findViewById(R.id.abuelo);
-        voluntarioRb = view.findViewById(R.id.voluntario);
-
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
-    }
-
-    private void setLoginScreen() {
-        Calendar c = Calendar.getInstance();
-        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
-
-        if(timeOfDay >= 7 && timeOfDay < 12) {
-            // Morning
-            linearLayout.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.good_morning_img));
-        }
-        else {
-            if(timeOfDay >= 12 && timeOfDay < 20) {
-                // Afternoon - Algo de bienvenida
-
-            }
-            else {
-                // Night
-                linearLayout.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.good_night_img));
-            }
-        }
     }
 
     private void setListeners() {
@@ -227,62 +190,7 @@ public class RegisterFragment extends Fragment {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.UK);
 
-        fechaNacEditText.setText(sdf.format(myCalendar.getTime()));
-    }
-
-    private boolean comprobarEmail() {
-        boolean userOk = false;
-
-        try {
-            email = emailEditText.getText().toString();
-            //Log.e("LOGIN", "Email: " + email.length());
-
-            if(email.length() == 0) { // Email vacío
-                emailEditText.requestFocus();
-                Toasty.error(requireContext(), "El email no puede estar vacío").show();
-            }
-            else {
-                if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    emailEditText.requestFocus();
-                    Toasty.error(requireContext(), "Email invalido").show();
-                }
-                else {
-                    userOk = true;
-                    passEditText.requestFocus();
-                }
-            }
-        }catch(Exception e) {
-            e.printStackTrace();
-        }
-
-        return userOk;
-    }
-
-    private boolean comprobarPass() {
-        boolean passOk = false;
-
-        try {
-            pass = passEditText.getText().toString();
-
-            if(pass.length() == 0) { // Email vacío
-                passEditText.requestFocus();
-                Toasty.error(requireContext(), "La contraseña no puede estar vacía").show();
-            }
-            else {
-                if(pass.length() < 6) {
-                    passEditText.requestFocus();
-                    Toasty.error(requireContext(), "La contraseña debe tener 6 carácteres").show();
-                }
-                else {
-                    passOk = true;
-                }
-            }
-
-        }catch(Exception e) {
-            e.printStackTrace();
-        }
-
-        return passOk;
+        fechaNacEditText.setText(sdf.format(calendar.getTime()));
     }
 
     private void registrarUsuarioFirebase() {
@@ -292,13 +200,11 @@ public class RegisterFragment extends Fragment {
                 if(task.isSuccessful()) {
                     Toasty.success(getContext(), "Usuario registrado.").show();
                     Navigation.findNavController(getView()).popBackStack();
-                    usuarioOk = true;
                 }
                 else {
                     if(task.getException() instanceof FirebaseAuthUserCollisionException) { // email ya registrado
                         Toasty.error(requireContext(), "El email ya exitse.").show();
                         emailEditText.requestFocus();
-                        usuarioOk = false;
                     }
                 }
             }
@@ -310,15 +216,15 @@ public class RegisterFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         setInitWidgets(view);
-        setLoginScreen();
+        setScreenByTime();
         setListeners();
 
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, month);
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 updateLabel();
             }
         };
@@ -326,14 +232,10 @@ public class RegisterFragment extends Fragment {
         fechaNacEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(requireContext(), date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                new DatePickerDialog(requireContext(), date, calendar
+                        .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-
-        // Log de fragments
-        //log(view);
-
     }
 }

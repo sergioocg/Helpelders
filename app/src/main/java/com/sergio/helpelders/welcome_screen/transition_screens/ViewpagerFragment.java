@@ -1,6 +1,5 @@
 package com.sergio.helpelders.welcome_screen.transition_screens;
 
-
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -19,8 +18,10 @@ import androidx.viewpager.widget.ViewPager;
 import com.sergio.helpelders.R;
 
 // https://www.youtube.com/watch?v=byLKoPgB7yA
-
 public class ViewpagerFragment extends Fragment {
+    /**
+     * Atributos
+     */
     private ViewPager slideViewPager;
     private LinearLayout dotsLayout;
 
@@ -31,9 +32,14 @@ public class ViewpagerFragment extends Fragment {
     private Button backBtn, nextBtn, skipBtn, iniciarButton;
     private int currentPage;
 
-
+    /**
+     * Constructor
+     */
     public ViewpagerFragment() {}
 
+    /**
+     * Métodos de Fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -90,6 +96,15 @@ public class ViewpagerFragment extends Fragment {
             }
         });
     }
+
+    /**
+     * Métodos propios
+     */
+
+    /**
+     * addDotsIndicator
+     * @param position de
+     */
 
     public void addDotsIndicator(int position) {
         dots = new TextView[sliderAdapter.getCount()];

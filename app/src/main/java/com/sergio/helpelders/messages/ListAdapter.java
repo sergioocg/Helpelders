@@ -1,4 +1,4 @@
-package com.sergio.helpelders.chat;
+package com.sergio.helpelders.messages;
 
 import android.content.Context;
 import android.view.LayoutInflater;

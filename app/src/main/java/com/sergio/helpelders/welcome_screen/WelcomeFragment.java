@@ -14,8 +14,14 @@ import androidx.navigation.Navigation;
 import com.sergio.helpelders.R;
 
 public class WelcomeFragment extends Fragment {
+    /**
+     * Constructor
+     */
     public WelcomeFragment() {}
 
+    /**
+     * Métodos
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_welcome, container, false);

@@ -13,8 +13,14 @@ import androidx.fragment.app.Fragment;
 import com.sergio.helpelders.R;
 
 public class HomeFragment extends Fragment {
+    /**
+     * Constructor
+     */
     public HomeFragment() {}
 
+    /**
+     * Métodos
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

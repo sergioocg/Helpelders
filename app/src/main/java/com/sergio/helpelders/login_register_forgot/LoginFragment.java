@@ -17,28 +17,30 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthEmailException;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.ornach.nobobutton.NoboButton;
 import com.sergio.helpelders.R;
+import com.sergio.helpelders.Util;
 
 import java.util.Calendar;
 
 import es.dmoral.toasty.Toasty;
 
-
-public class LoginFragment extends Fragment {
+public class LoginFragment extends Util {
     /**
      * Atributos
      */
-    private ConstraintLayout constraintLayout;
-    private TextInputEditText emailEditText, passEditText;
     private NoboButton loginButton, registerButton;
     private TextView forgotPass, tituloTextView;
-
-    private FirebaseAuth mAuth;
 
     private String email, pass;
 
@@ -60,8 +62,6 @@ public class LoginFragment extends Fragment {
         loginButton = view.findViewById(R.id.btn_iniciar);
         registerButton = view.findViewById(R.id.btn_registrar);
         forgotPass = view.findViewById(R.id.btn_recuperar_contrasena);
-
-        mAuth = FirebaseAuth.getInstance();
     }
 
     /**
@@ -71,28 +71,6 @@ public class LoginFragment extends Fragment {
     // Agradecimientos
     // https://www.youtube.com/watch?v=Tk_zDJCrRSY&t=1423s
     // https://www.uplabs.com/posts/login-ui-ux-504e2015-ee34-45ec-ae1a-286d166ed6e6
-    private void setLoginScreen() {
-        Calendar c = Calendar.getInstance();
-        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
-        //Log.i("TIME", String.valueOf(timeOfDay));
-
-        if(timeOfDay >= 7 && timeOfDay < 12) {
-            // Morning
-            constraintLayout.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.good_morning_img));
-            tituloTextView.setText("¡ Buenos días !");
-        }
-        else {
-            if(timeOfDay >= 12 && timeOfDay < 20) {
-                // Afternoon - Algo de bienvenida
-
-            }
-            else {
-                // Night
-                constraintLayout.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.good_night_img));
-                tituloTextView.setText("¡ Buenas noches !");
-            }
-        }
-    }
 
     private void setListeners() {
         registerButton.setOnClickListener(view12 -> Navigation.findNavController(view12).navigate(R.id.registerFragment));
@@ -111,83 +89,34 @@ public class LoginFragment extends Fragment {
         forgotPass.setOnClickListener(view13 -> Navigation.findNavController(view13).navigate(R.id.forgotРasswordFragment));
     }
 
-    private boolean comprobarEmail() {
-        boolean userOk = false;
-
-        try {
-            email = emailEditText.getText().toString();
-            //Log.e("LOGIN", "Email: " + email.length());
-
-            if(email.length() == 0) { // Email vacío
-                emailEditText.requestFocus();
-                Toasty.error(requireContext(), "El email no puede estar vacío").show();
-            }
-            else {
-                if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    emailEditText.requestFocus();
-                    Toasty.error(requireContext(), "Email invalido").show();
-                }
-                else {
-                    userOk = true;
-                    passEditText.requestFocus();
-                }
-            }
-        }catch(Exception e) {
-            e.printStackTrace();
-        }
-
-        return userOk;
-    }
-
-    private boolean comprobarPass() {
-        boolean passOk = false;
-
-        try {
-            pass = passEditText.getText().toString();
-
-            if(pass.length() == 0) { // Email vacío
-                passEditText.requestFocus();
-                Toasty.error(requireContext(), "La contraseña no puede estar vacía").show();
-            }
-            else {
-                if(pass.length() < 6) {
-                    passEditText.requestFocus();
-                    Toasty.error(requireContext(), "La contraseña debe tener 6 carácteres").show();
-                }
-                else {
-                    passOk = true;
-                }
-            }
-
-        }catch(Exception e) {
-            e.printStackTrace();
-        }
-
-        return passOk;
-    }
-
+    // https://www.techotopia.com/index.php/Handling_Firebase_Authentication_Errors_and_Failures
     public void iniciarUsuarioFirebase() {
-        mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        mAuth.signInWithEmailAndPassword(emailEditText.getText().toString(), passEditText.getText().toString())
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
-                    Toasty.success(requireContext(), "Usuario correcto").show();
+                    showAlertDialog(SweetAlertDialog.SUCCESS_TYPE, "¡ Bienvenido !", ""); // ¿AlertDialog o Toasty?
                     Navigation.findNavController(getView()).navigate(R.id.homeFragment);
                 }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) { // Llevar a registrar email
+                if(e instanceof FirebaseAuthInvalidUserException) {
+                    showErrorToast("Email incorrecto o no está registrado");
+                }
                 else {
-                    // / Mostrar AlerDiaglo, quieres registrarte, y llevar a Registrar,
-                    Toasty.error(requireContext(), "Credenciales invalidas").show();
+                    if(e instanceof FirebaseAuthInvalidCredentialsException) {
+                        showErrorToast("Contraseña incorrecta");
+                    }
                 }
             }
         });
     }
 
     /**
-     * Métodos sobreescritos de la clase Fragment
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
+     * Métodos de Fragment
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -199,11 +128,7 @@ public class LoginFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         setInitWidgets(view);
-        setLoginScreen();
+        setLoginScreen(tituloTextView);
         setListeners();
-
-        //emailEditText.setText("admin@admin.es");
-        //passEditText.setText("123456");
-
     }
 }

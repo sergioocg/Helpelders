@@ -1,4 +1,4 @@
-package com.sergio.helpelders.chat;
+package com.sergio.helpelders.messages;
 
 
 import android.os.Bundle;
@@ -21,8 +21,6 @@ import com.sergio.helpelders.R;
 import es.dmoral.toasty.Toasty;
 
 public class MessageFragment extends Fragment {
-    private ImageView btnGoBack;
-
     ListView list;
     ListAdapter adapter;
     String[] name,message;
@@ -41,9 +39,6 @@ public class MessageFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        btnGoBack = view.findViewById(R.id.btn_volver);
-        btnGoBack.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.homeFragment));
 
         name = new String[]{ "Fabián", "Miguel", "Anthea", "Maeve"};
 

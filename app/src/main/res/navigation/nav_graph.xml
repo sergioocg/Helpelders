@@ -56,7 +56,7 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/messageFragment"
-        android:name="com.sergio.helpelders.chat.MessageFragment"
+        android:name="com.sergio.helpelders.messages.MessageFragment"
         android:label="fragment_message"
         tools:layout="@layout/fragment_message" />
     <fragment
