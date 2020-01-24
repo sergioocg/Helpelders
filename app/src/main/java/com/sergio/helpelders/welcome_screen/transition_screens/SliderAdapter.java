@@ -1,4 +1,4 @@
-package com.sergio.helpelders.welcome_screen;
+package com.sergio.helpelders.welcome_screen.transition_screens;
 
 import android.content.Context;
 import android.view.LayoutInflater;

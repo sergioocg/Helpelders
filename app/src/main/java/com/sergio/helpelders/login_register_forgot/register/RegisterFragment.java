@@ -1,4 +1,4 @@
-package com.sergio.helpelders.login_register_forgot;
+package com.sergio.helpelders.login_register_forgot.register;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -31,7 +31,6 @@ import com.ornach.nobobutton.NoboButton;
 import com.sergio.helpelders.R;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;

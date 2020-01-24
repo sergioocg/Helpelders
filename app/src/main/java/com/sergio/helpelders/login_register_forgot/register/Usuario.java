@@ -1,4 +1,4 @@
-package com.sergio.helpelders.login_register_forgot;
+package com.sergio.helpelders.login_register_forgot.register;
 
 public class Usuario {
     /**

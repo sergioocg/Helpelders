@@ -1,4 +1,4 @@
-package com.sergio.helpelders;
+package com.sergio.helpelders.home.principal.profile;
 
 
 import android.os.Bundle;
@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.sergio.helpelders.R;
 
 
 /**

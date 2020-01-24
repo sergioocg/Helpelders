@@ -1,4 +1,4 @@
-package com.sergio.helpelders.home.bottom_bar_navigation;
+package com.sergio.helpelders.home.principal.profile;
 
 
 import android.os.Bundle;
@@ -8,7 +8,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,28 +17,22 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.luseen.spacenavigation.SpaceNavigationView;
 import com.sergio.helpelders.R;
-
-import es.dmoral.toasty.Toasty;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class profileFragment extends Fragment {
+public class ProfileFragment extends Fragment {
     private TextView nombreTextView, btnVerPerfil;
     private ImageView btnGoBack;
     private LinearLayout lCerrarSesion;
 
-    public profileFragment() {}
+    public ProfileFragment() {}
 
 
     @Override

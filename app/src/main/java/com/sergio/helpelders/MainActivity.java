@@ -101,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         // Toolbar superior
         Toolbar myToolbar = findViewById(R.id.superiorBar);
         setSupportActionBar(myToolbar);
@@ -109,20 +108,18 @@ public class MainActivity extends AppCompatActivity {
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             switch (destination.getId()) {
                 case R.id.homeFragment:
-                    navigationView.setVisibility(View.VISIBLE);
-                    break;
                 case R.id.welcomeFragment:
                 case R.id.viewpagerFragment:
                 case R.id.loginFragment:
                 case R.id.registerFragment:
                 case R.id.forgotРasswordFragment:
                 case R.id.mapFragment:
-                case R.id.messageFragment:
-                case R.id.profileFragment:
+                case R.id.fullProfileFragment:
                     navigationView.setVisibility(View.GONE);
                     myToolbar.setVisibility(View.GONE);
                 break;
                 default:
+                    navigationView.setVisibility(View.VISIBLE);
                     //myToolbar.setVisibility(View.VISIBLE);
                     //myToolbar.setTitle(navController.getCurrentDestination().getLabel());
             }

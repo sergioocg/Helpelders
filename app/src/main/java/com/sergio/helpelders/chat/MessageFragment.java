@@ -20,7 +20,7 @@ import com.sergio.helpelders.R;
 
 import es.dmoral.toasty.Toasty;
 
-public class messageFragment extends Fragment {
+public class MessageFragment extends Fragment {
     private ImageView btnGoBack;
 
     ListView list;
@@ -29,7 +29,7 @@ public class messageFragment extends Fragment {
 
     int[] image;
 
-    public messageFragment() {}
+    public MessageFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

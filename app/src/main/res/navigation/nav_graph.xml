@@ -16,12 +16,12 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.sergio.helpelders.login_register_forgot.RegisterFragment"
+        android:name="com.sergio.helpelders.login_register_forgot.register.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" />
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.sergio.helpelders.home.bottom_bar_navigation.HomeFragment"
+        android:name="com.sergio.helpelders.home.principal.HomeFragment"
         android:label="Inicio"
         tools:layout="@layout/fragment_home">
         <action
@@ -46,17 +46,17 @@
         tools:layout="@layout/fragment_map" />
     <fragment
         android:id="@+id/viewpagerFragment"
-        android:name="com.sergio.helpelders.welcome_screen.ViewpagerFragment"
+        android:name="com.sergio.helpelders.welcome_screen.transition_screens.ViewpagerFragment"
         android:label="fragment_viewpager"
         tools:layout="@layout/fragment_viewpager"/>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.sergio.helpelders.home.bottom_bar_navigation.profileFragment"
+        android:name="com.sergio.helpelders.home.principal.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/messageFragment"
-        android:name="com.sergio.helpelders.chat.messageFragment"
+        android:name="com.sergio.helpelders.chat.MessageFragment"
         android:label="fragment_message"
         tools:layout="@layout/fragment_message" />
     <fragment
@@ -70,12 +70,12 @@
     </fragment>
     <fragment
         android:id="@+id/publishFragment"
-        android:name="com.sergio.helpelders.PublishFragment"
+        android:name="com.sergio.helpelders.home.principal.PublishFragment"
         android:label="fragment_publish"
         tools:layout="@layout/fragment_publish" />
     <fragment
         android:id="@+id/fullProfileFragment"
-        android:name="com.sergio.helpelders.FullProfileFragment"
+        android:name="com.sergio.helpelders.home.principal.profile.FullProfileFragment"
         android:label="fragment_full_profile"
         tools:layout="@layout/fragment_full_profile" />
 </navigation>
