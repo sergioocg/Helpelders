@@ -46,6 +46,7 @@
         android:layout_alignParentBottom="true"
         android:background="@android:color/transparent"
         android:text="Siguiente"
+        android:visibility="visible"
         app:cornerRadius="20dp"
         android:textColor="@color/colorWhite" />
 
@@ -56,7 +57,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:background="@android:color/transparent"
-        android:text="Iniciar"
+        android:text=""
         app:cornerRadius="20dp"
         android:visibility="invisible"
         android:textColor="@color/colorWhite" />

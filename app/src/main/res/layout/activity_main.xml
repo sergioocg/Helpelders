@@ -40,9 +40,7 @@
         app:centre_button_icon="@drawable/ic_location_black_24dp"
         app:inactive_centre_button_icon_color="@color/colorWhite"
         app:active_centre_button_icon_color="#F44336"
-        app:space_item_icon_size="@dimen/space_item_icon_default_size"
-        app:space_item_icon_only_size="@dimen/space_item_icon_only_size"
-        app:space_item_text_size="@dimen/space_item_text_default_size" />
+        app:space_item_text_size="14sp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

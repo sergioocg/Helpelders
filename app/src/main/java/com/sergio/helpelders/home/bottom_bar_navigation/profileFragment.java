@@ -8,23 +8,38 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.luseen.spacenavigation.SpaceNavigationView;
 import com.sergio.helpelders.R;
+
+import es.dmoral.toasty.Toasty;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class profileFragment extends Fragment {
+    private TextView nombreTextView, btnVerPerfil;
     private ImageView btnGoBack;
+    private LinearLayout lCerrarSesion;
 
-    public profileFragment() {
-        // Required empty public constructor
-    }
+    public profileFragment() {}
 
 
     @Override
@@ -39,6 +54,39 @@ public class profileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         btnGoBack = view.findViewById(R.id.btn_volver);
-        btnGoBack.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.homeFragment));
+        btnGoBack.setOnClickListener(view1 -> Navigation.findNavController(view1).popBackStack());
+
+        nombreTextView = view.findViewById(R.id.nombre);
+        btnVerPerfil = view.findViewById(R.id.verPefilCompleto);
+        lCerrarSesion = view.findViewById(R.id.linearCerrarSesion);
+
+        btnVerPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.fullProfileFragment);
+            }
+        });
+
+        FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+        DocumentReference user = fStore.collection("usuarios").document(mAuth.getCurrentUser().getEmail());
+        user.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()) {
+                    DocumentSnapshot doc = task.getResult();
+                    nombreTextView.setText(doc.getString("nombre") + " " + doc.getString("apellidos"));
+                }
+            }
+        });
+
+        lCerrarSesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                Navigation.findNavController(v).navigate(R.id.loginFragment);
+            }
+        });
     }
 }

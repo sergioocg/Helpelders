@@ -9,6 +9,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.luseen.spacenavigation.SpaceItem;
 import com.luseen.spacenavigation.SpaceNavigationView;
 import com.luseen.spacenavigation.SpaceOnClickListener;
@@ -20,9 +22,25 @@ public class MainActivity extends AppCompatActivity {
     private NavController navController;
 
     @Override
+    public void onBackPressed() { // Evita que puedas dar atrás por gestos o barra de abajo de Android
+        //super.onBackPressed();
+        return;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /**
+         * Desactiva la cache
+         * El SDK de Firestore tiene activada por defecto la persistencia de datos. Esto signicica
+         * que cuando hacemos una consulta al servidor, se guarda el resultado en el móvil (caché).
+         * Va bien para ahorrar datos, pero puede ser un quebradero durante el desarrollo de la app.
+         */
+        FirebaseFirestore.getInstance().setFirestoreSettings(new FirebaseFirestoreSettings.Builder()
+                .setPersistenceEnabled(false)
+                .build());
 
 
         /**
@@ -34,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         navController.navigate(R.id.welcomeFragment);
 
         // Toast
-        Toasty.Config.getInstance() .apply();
+        Toasty.Config.getInstance().apply();
 
         // Bottom bar
         SpaceNavigationView navigationView = findViewById(R.id.space);
@@ -48,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setSpaceOnClickListener(new SpaceOnClickListener() {
             @Override
             public void onCentreButtonClick() {
-                Toasty.info(MainActivity.this,"MAPA", Toast.LENGTH_SHORT).show();
+                Toasty.info(MainActivity.this,"Mapa", Toast.LENGTH_SHORT).show();
                 navigationView.setCentreButtonSelectable(true);
 
                 navController.navigate(R.id.mapFragment);
@@ -64,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                     case 1: // Publicar
-                        //navController.navigate(R.id.publishFragment);
+                        navController.navigate(R.id.publishFragment);
                     break;
 
                     case 2: // Mensajes
@@ -92,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
             switch (destination.getId()) {
                 case R.id.homeFragment:
                     navigationView.setVisibility(View.VISIBLE);
-                break;
+                    break;
                 case R.id.welcomeFragment:
                 case R.id.viewpagerFragment:
                 case R.id.loginFragment:

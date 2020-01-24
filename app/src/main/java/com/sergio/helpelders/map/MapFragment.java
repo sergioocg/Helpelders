@@ -48,7 +48,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.findViewById(R.id.boton_volver).setOnClickListener(new View.OnClickListener() {
+        btnVolver = view.findViewById(R.id.boton_volver);
+        btnVolver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.homeFragment);
@@ -87,7 +88,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
-        LocationManager locationManager = (LocationManager) getContext().getSystemService(getContext().LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) requireContext().getSystemService(requireContext().LOCATION_SERVICE);
         LocationListener locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {

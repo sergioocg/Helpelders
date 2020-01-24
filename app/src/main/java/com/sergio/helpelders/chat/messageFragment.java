@@ -60,7 +60,7 @@ public class messageFragment extends Fragment {
         list = (ListView)view.findViewById(R.id.mylist);
 
         // Pass results to ListViewAdapter Class
-        adapter = new ListAdapter(getContext(), name,message,image);
+        adapter = new ListAdapter(requireContext(), name,message,image);
         // Binds the Adapter to the ListView
         list.setAdapter(adapter);
         // Capture ListView item click
@@ -70,7 +70,7 @@ public class messageFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                Toasty.info(getContext(),"Has seleccionado: " + name[position], Toast.LENGTH_SHORT).show();
+                Toasty.info(requireContext(),"Has seleccionado: " + name[position], Toast.LENGTH_SHORT).show();
             }
 
         });

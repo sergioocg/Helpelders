@@ -49,13 +49,13 @@
                             android:layout_alignParentStart="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_volver_black_30"/>
+                            android:src="@drawable/ic_volver_black_50"/>
 
                         <ImageView
                             android:layout_alignParentEnd="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_ayuda_black_30"/>
+                            android:src="@drawable/ic_ayuda_black_50"/>
 
                     </RelativeLayout>
 
@@ -68,9 +68,10 @@
                         android:src="@drawable/profile_image" />
 
                     <TextView
+                        android:id="@+id/nombre"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Bill Murray"
+                        android:text=""
                         android:textColor="@color/colorTitle"
                         android:textSize="22sp"
                         android:textStyle="bold" />
@@ -87,6 +88,7 @@
 
 
                     <TextView
+                        android:id="@+id/verPefilCompleto"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5px"
@@ -94,7 +96,7 @@
                         android:text="Ver perfil completo"
                         android:textColor="@color/colorSubtitle"
                         android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"/>
 
                 </LinearLayout>
 
@@ -474,11 +476,28 @@
                 android:textStyle="italic"
                 android:background="@drawable/bonuspack_bubble"/>
 
-                <ImageView
+                <LinearLayout
+                    android:id="@+id/linearCerrarSesion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal"
+                    android:layout_marginBottom="15dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_black_cerrar"
+                        android:layout_marginRight="10dp"/>
+                <TextView
+                    android:layout_marginTop="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_black_cerrar"
-                    android:layout_marginBottom="15dp"/>
+                    android:textColor="@color/colorSubtitle"
+                    android:text="Cerrar sesión"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+                </LinearLayout>
 
             </LinearLayout>
 

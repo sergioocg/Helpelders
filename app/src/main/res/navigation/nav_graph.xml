@@ -68,4 +68,14 @@
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/publishFragment"
+        android:name="com.sergio.helpelders.PublishFragment"
+        android:label="fragment_publish"
+        tools:layout="@layout/fragment_publish" />
+    <fragment
+        android:id="@+id/fullProfileFragment"
+        android:name="com.sergio.helpelders.FullProfileFragment"
+        android:label="fragment_full_profile"
+        tools:layout="@layout/fragment_full_profile" />
 </navigation>

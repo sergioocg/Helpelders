@@ -104,10 +104,10 @@
             android:orientation="horizontal"
             android:layout_weight="1"
             android:gravity="center"
-            android:checkedButton="@id/male">
+            android:checkedButton="@id/hombre">
 
             <RadioButton
-                android:id="@+id/male"
+                android:id="@+id/hombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorWhite"
@@ -119,6 +119,7 @@
                 android:src="@drawable/ic_black_male"/>
 
             <RadioButton
+                android:id="@+id/mujer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorWhite"
@@ -151,6 +152,7 @@
                     android:src="@drawable/ic_black_elder"/>
 
                 <RadioButton
+                    android:id="@+id/voluntario"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:theme="@style/myEditTextStyle"

@@ -2,15 +2,7 @@ package com.sergio.helpelders.welcome_screen;
 
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-import androidx.viewpager.widget.ViewPager;
-
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +10,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.material.button.MaterialButton;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.viewpager.widget.ViewPager;
+
 import com.sergio.helpelders.R;
 
 // https://www.youtube.com/watch?v=byLKoPgB7yA
@@ -99,7 +96,7 @@ public class ViewpagerFragment extends Fragment {
         dotsLayout.removeAllViews(); // Si no empieza a crear puntos
 
         for(int i = 0; i < dots.length; i++) {
-            dots[i] = new TextView(getContext());
+            dots[i] = new TextView(requireContext());
             dots[i].setText(Html.fromHtml("&#8226;"));
             dots[i].setTextSize(35);
             dots[i].setTextColor(getResources().getColor(R.color.colorTransparentWhite));
@@ -123,33 +120,51 @@ public class ViewpagerFragment extends Fragment {
             addDotsIndicator(position);
             currentPage = position;
 
-            if(position == 0) {
+            if(position == 0) { // Primera página
                 nextBtn.setEnabled(true);
+                nextBtn.setVisibility(View.VISIBLE);
+                nextBtn.setText("Siguiente");
+
                 backBtn.setEnabled(false);
                 backBtn.setVisibility(View.INVISIBLE);
-
-                nextBtn.setText("Siguiente");
                 backBtn.setText("");
+
+                iniciarButton.setEnabled(false);
+                iniciarButton.setVisibility(View.INVISIBLE);
+
+                //Log.i("PAGE", "Posición == 0: " + position);
             }
             else {
-                if(position == (dots.length - 1)) {
+                if(position == (dots.length - 1)) { // Última página
                     nextBtn.setEnabled(false);
+                    nextBtn.setVisibility(View.INVISIBLE);
+
                     backBtn.setEnabled(true);
                     backBtn.setVisibility(View.VISIBLE);
 
                     nextBtn.setText("");
                     backBtn.setText("Volver");
 
+                   // Log.i("PAGE", "Posición: " + position + "dots.length - 1): " + (dots.length-1));
+
                     iniciarButton.setEnabled(true);
                     iniciarButton.setVisibility(View.VISIBLE);
+                    iniciarButton.setText("Iniciar");
                 }
-                else {
+                else { // Página intermedia
                     nextBtn.setEnabled(true);
+                    nextBtn.setText("Siguiente");
+                    nextBtn.setVisibility(View.VISIBLE);
+
                     backBtn.setEnabled(true);
                     backBtn.setVisibility(View.VISIBLE);
-
-                    nextBtn.setText("Siguiente");
                     backBtn.setText("Volver");
+
+                    iniciarButton.setEnabled(false);
+                    iniciarButton.setVisibility(View.INVISIBLE);
+
+                    //lLog.i("PAGE", "Posición: " + position);
+
                 }
             }
         }

@@ -78,7 +78,7 @@ public class LoginFragment extends Fragment {
 
         if(timeOfDay >= 7 && timeOfDay < 12) {
             // Morning
-            constraintLayout.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.good_morning_img));
+            constraintLayout.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.good_morning_img));
             tituloTextView.setText("¡ Buenos días !");
         }
         else {
@@ -88,7 +88,7 @@ public class LoginFragment extends Fragment {
             }
             else {
                 // Night
-                constraintLayout.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.good_night_img));
+                constraintLayout.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.good_night_img));
                 tituloTextView.setText("¡ Buenas noches !");
             }
         }
@@ -120,12 +120,12 @@ public class LoginFragment extends Fragment {
 
             if(email.length() == 0) { // Email vacío
                 emailEditText.requestFocus();
-                Toasty.error(getContext(), "El email no puede estar vacío").show();
+                Toasty.error(requireContext(), "El email no puede estar vacío").show();
             }
             else {
                 if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     emailEditText.requestFocus();
-                    Toasty.error(getContext(), "Email invalido").show();
+                    Toasty.error(requireContext(), "Email invalido").show();
                 }
                 else {
                     userOk = true;
@@ -147,12 +147,12 @@ public class LoginFragment extends Fragment {
 
             if(pass.length() == 0) { // Email vacío
                 passEditText.requestFocus();
-                Toasty.error(getContext(), "La contraseña no puede estar vacía").show();
+                Toasty.error(requireContext(), "La contraseña no puede estar vacía").show();
             }
             else {
                 if(pass.length() < 6) {
                     passEditText.requestFocus();
-                    Toasty.error(getContext(), "La contraseña debe tener 6 carácteres").show();
+                    Toasty.error(requireContext(), "La contraseña debe tener 6 carácteres").show();
                 }
                 else {
                     passOk = true;
@@ -171,16 +171,15 @@ public class LoginFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
-                    Toasty.success(getContext(), "Usuario correcto").show();
+                    Toasty.success(requireContext(), "Usuario correcto").show();
                     Navigation.findNavController(getView()).navigate(R.id.homeFragment);
                 }
                 else {
                     // / Mostrar AlerDiaglo, quieres registrarte, y llevar a Registrar,
-                    Toasty.error(getContext(), "Credenciales invalidas").show();
+                    Toasty.error(requireContext(), "Credenciales invalidas").show();
                 }
             }
         });
-
     }
 
     /**
@@ -202,6 +201,9 @@ public class LoginFragment extends Fragment {
         setInitWidgets(view);
         setLoginScreen();
         setListeners();
+
+        //emailEditText.setText("admin@admin.es");
+        //passEditText.setText("123456");
 
     }
 }
