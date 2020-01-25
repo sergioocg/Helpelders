@@ -6,13 +6,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,7 +20,7 @@ import es.dmoral.toasty.Toasty;
 
 public class MessageFragment extends Fragment {
     ListView list;
-    ListAdapter adapter;
+    ListAdapterChats adapter;
     String[] name,message;
 
     int[] image;
@@ -55,7 +53,7 @@ public class MessageFragment extends Fragment {
         list = (ListView)view.findViewById(R.id.mylist);
 
         // Pass results to ListViewAdapter Class
-        adapter = new ListAdapter(requireContext(), name,message,image);
+        adapter = new ListAdapterChats(requireContext(), name,message,image);
         // Binds the Adapter to the ListView
         list.setAdapter(adapter);
         // Capture ListView item click

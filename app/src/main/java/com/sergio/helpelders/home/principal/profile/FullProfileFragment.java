@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,13 +19,12 @@ import com.sergio.helpelders.R;
 import com.sergio.helpelders.Util;
 
 public class FullProfileFragment extends Util {
-    private TextView localidadTextView, fechaNacTextView,
-            direccionTextView, codPostTextView, sexoTextView, tipoUsuarioTextView, emailTextView;
-
     public FullProfileFragment() {}
 
     private void setInitWidgets(View view) {
         volverButton = view.findViewById(R.id.btn_volver);
+        cerrarSesionButton = view.findViewById(R.id.btn_cerrar_sesion);
+
         nombreApellidosTextView = view.findViewById(R.id.nombre_apellidos);
         localidadTextView = view.findViewById(R.id.localidad);
         fechaNacTextView = view.findViewById(R.id.fechaNacimiento);
@@ -47,10 +45,20 @@ public class FullProfileFragment extends Util {
                 Navigation.findNavController(v).popBackStack();
             }
         });
+
+        cerrarSesionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                Navigation.findNavController(v).navigate(R.id.loginFragment);
+            }
+        });
     }
 
-    // Creo una colección llamada usuarios, y cada usuario será identificado con el email.
-    // Así en Authentication de Firebase es más sencillo de identificar.
+    /**
+     * Creo una colección llamada usuarios y los identifico por el campo email.
+     * https://dzone.com/articles/cloud-firestore-read-write-update-and-delete
+     */
     private void rellenarPerfil() {
         user = fStore.collection("usuarios").document(mAuth.getCurrentUser().getEmail());
         user.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

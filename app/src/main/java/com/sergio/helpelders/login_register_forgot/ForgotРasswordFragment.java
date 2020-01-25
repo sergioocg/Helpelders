@@ -5,27 +5,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
-import com.google.android.material.textfield.TextInputEditText;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.ornach.nobobutton.NoboButton;
 import com.sergio.helpelders.R;
 import com.sergio.helpelders.Util;
 
-import java.util.Calendar;
-
 public class ForgotРasswordFragment extends Util {
-    private TextInputEditText emailEditText;
-
-    SweetAlertDialog pDialog;
-
     private NoboButton btnRecordar;
 
     public ForgotРasswordFragment() { }
@@ -43,8 +32,8 @@ public class ForgotРasswordFragment extends Util {
         btnRecordar.setOnClickListener(new View.OnClickListener() { // Faltaría comprobar cosas, etc.
             @Override
             public void onClick(View v) {
-                if(!emailEditText.getText().toString().isEmpty()) {
-                    pDialog = new SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE);
+                if(comprobarEmail()) {
+                    SweetAlertDialog pDialog = new SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE);
 
                     pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
                     pDialog.setTitleText("Reiniciando... ");
@@ -54,9 +43,6 @@ public class ForgotРasswordFragment extends Util {
                     showSuccessToast("¡ Te acabamos de enviar un email para cambiar la contraseña !");
 
                     getFragmentManager().popBackStack();
-                }
-                else {
-                    showAlertDialog(SweetAlertDialog.ERROR_TYPE, "Oops...", "Introduce tu email");
                 }
             }
         });
@@ -73,7 +59,7 @@ public class ForgotРasswordFragment extends Util {
         super.onViewCreated(view, savedInstanceState);
 
         initWidgets(view);
-        setScreenByTime();
+        setForgotScreen();
         setListeners();
     }
 }

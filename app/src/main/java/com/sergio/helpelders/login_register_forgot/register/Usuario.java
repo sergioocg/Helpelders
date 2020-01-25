@@ -10,7 +10,6 @@ public class Usuario {
      *
      * Constructor
      */
-
     public Usuario() {}
 
     public Usuario(String nombre, String apellidos, String fechaNac, String sexo,

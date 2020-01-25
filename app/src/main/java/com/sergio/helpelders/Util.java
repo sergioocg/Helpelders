@@ -5,6 +5,7 @@ import android.util.Patterns;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -29,18 +30,21 @@ public abstract class Util extends Fragment {
     public LinearLayout linearLayout;
     public ConstraintLayout constraintLayout;
 
-    public ImageView volverButton;
+    public ImageView volverButton, cerrarSesionButton;
     public TextView nombreApellidosTextView;
-    public EditText emailEditText, passEditText;
+    public EditText nombreEditText, apellidosEditText, direccionEditText, cpEditText, localidadEditText, fechaNacEditText, emailEditText, passEditText;
+    public RadioButton hombreRb, abueloRb;
 
-    public SweetAlertDialog alertDialog;
-
+    public String nombre, apellidos, fechaNac, sexo, rolUsuario, direccion,
+            localidad, codPost;
     public String email, pass;
 
     public final Calendar calendar = Calendar.getInstance();
 
     public DocumentReference user;
-    public DocumentSnapshot doc;
+
+    public TextView localidadTextView, fechaNacTextView,
+            direccionTextView, codPostTextView, sexoTextView, tipoUsuarioTextView, emailTextView;
 
     public void showAlertDialog(int tipoAlerta, String titulo, String texto) {
         new SweetAlertDialog(requireContext(), tipoAlerta)
@@ -60,53 +64,41 @@ public abstract class Util extends Fragment {
 
 
     public boolean comprobarEmail() {
-        boolean userOk = false;
+        boolean emailOk = false;
 
-        try {
-            email = emailEditText.getText().toString();
-            //Log.e("LOGIN", "Email: " + email.length());
-
-            if(email.length() == 0) { // Email vacío
-                showErrorToast("El email no puede estar vacío");
+        if(emailEditText.getText().toString().length() > 0) {
+            if(Patterns.EMAIL_ADDRESS.matcher(emailEditText.getText().toString()).matches()) {
+                email = emailEditText.getText().toString();
+                emailOk = true;
             }
             else {
-                if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    showErrorToast("Formato de email no válido");
-                }
-                else {
-                    userOk = true;
-                }
+                showErrorToast("Formato de EMAIL no válido");
             }
-        }catch(Exception e) {
-            e.printStackTrace();
+        }
+        else {
+            showErrorToast("El EMAIL no puede estar vacío");
         }
 
-        return userOk;
+        return emailOk;
     }
 
     public boolean comprobarPass() {
-        boolean passOk = false;
+        boolean passOK = false;
 
-        try {
-            pass = passEditText.getText().toString();
-
-            if(pass.length() == 0) { // Email vacío
-                showErrorToast("La contraseña no puede estar vacía");
+        if(passEditText.getText().toString().length() > 0) {
+            if(passEditText.getText().toString().length() >= 6) {
+                pass = passEditText.getText().toString();
+                passOK = true;
             }
             else {
-                if(pass.length() < 6) {
-                    showErrorToast("La contraseña debe tener 6 carácteres");
-                }
-                else {
-                    passOk = true;
-                }
+                showErrorToast("La CONTRASEÑA debe tener 6 carácteres");
             }
-
-        }catch(Exception e) {
-            e.printStackTrace();
+        }
+        else {
+            showErrorToast("La CONTRASEÑA no puede estar vacía");
         }
 
-        return passOk;
+        return passOK;
     }
 
     public void setLoginScreen(TextView titulo) {
@@ -130,7 +122,7 @@ public abstract class Util extends Fragment {
         }
     }
 
-    public void setScreenByTime() {
+    public void setRegisterScreen() {
         int horaActual = calendar.get(Calendar.HOUR_OF_DAY);
         //Log.i("TIME", String.valueOf(horaActual));
 
@@ -148,6 +140,26 @@ public abstract class Util extends Fragment {
             }
         }
     }
+
+    public void setForgotScreen() {
+        int horaActual = calendar.get(Calendar.HOUR_OF_DAY);
+        //Log.i("TIME", String.valueOf(horaActual));
+
+        if(horaActual >= 7 && horaActual < 12) {
+            // Mañana
+            constraintLayout.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.good_morning_img));
+        }
+        else {
+            if(horaActual >= 12 && horaActual < 20) {
+                // Tarde
+            }
+            else {
+                // Night
+                constraintLayout.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.good_night_img));
+            }
+        }
+    }
+
 
 
 

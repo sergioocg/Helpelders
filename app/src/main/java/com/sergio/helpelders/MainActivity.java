@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -103,12 +102,9 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.mapFragment:
                 case R.id.fullProfileFragment:
                     bottomBar.setVisibility(View.GONE);
-                    //toolbar.setVisibility(View.GONE);
                     break;
                 default:
                     bottomBar.setVisibility(View.VISIBLE);
-                    //toolbar.setVisibility(View.VISIBLE);
-                    //toolbar.setTitle(navController.getCurrentDestination().getLabel());
             }
         });
     }
@@ -125,14 +121,6 @@ public class MainActivity extends AppCompatActivity {
                 .setPersistenceEnabled(false)
                 .build());
     }
-
-    /*
-    private void setToolbar() {
-        toolbar = findViewById(R.id.superiorBar);
-        setSupportActionBar(toolbar);
-    }
-    */
-
 
     /**
      * Evita que puedas dar al botón atrás que incorpora Android, tanto barra inferior como gestos
@@ -156,7 +144,5 @@ public class MainActivity extends AppCompatActivity {
 
         setNavController();
         setFirestore();
-
-        //setToolbar();
     }
 }

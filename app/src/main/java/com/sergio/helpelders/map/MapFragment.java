@@ -33,13 +33,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.sergio.helpelders.R;
+import com.sergio.helpelders.Util;
 
-public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
+public class MapFragment extends Util implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
     private GoogleMap mMap;
     private SupportMapFragment mapFragment;
     private Marker markerUser, infoWindowUser;
 
-    private Button btnVolver;
 
     int TAG_CODE_PERMISSION_LOCATION;
 
@@ -48,8 +48,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        btnVolver = view.findViewById(R.id.boton_volver);
-        btnVolver.setOnClickListener(new View.OnClickListener() {
+        volverButton = view.findViewById(R.id.boton_volver);
+        volverButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.homeFragment);
@@ -153,6 +153,19 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         // Añadir markers
         mMap = googleMap;
 
+
+        // Las imágenes de perfil serán la de los usuario pero redimensionadas
+        LatLng user1, user2, user3;
+        user1 = new LatLng(41.451563, 2.2083371);
+        infoWindowUser = markerUser = mMap.addMarker(new MarkerOptions().position(user1).title("Marc").snippet("Voluntario").icon(BitmapDescriptorFactory.fromResource(R.drawable.profile_image_24)));
+
+        user2 = new LatLng(41.44880760433233, 2.2084829580730627);
+        infoWindowUser = markerUser = mMap.addMarker(new MarkerOptions().position(user2).title("Esther").snippet("Voluntaria").icon(BitmapDescriptorFactory.fromResource(R.drawable.profile_image_24)));
+
+        user3 = new LatLng(41.45347907732966, 2.2072492500832936);
+        infoWindowUser = markerUser = mMap.addMarker(new MarkerOptions().position(user3).title("Amaia").snippet("Abuela").icon(BitmapDescriptorFactory.fromResource(R.drawable.profile_image_24)));
+
+        /*
         // Marcador
         LatLng Santaco = new LatLng(41.4537951, 2.2091939);
         infoWindowUser = markerUser = mMap.addMarker(new MarkerOptions().position(Santaco)
@@ -162,7 +175,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
         // Cámara
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Santaco,15));
-
+*/
         // Clic en el marcador
         mMap.setOnMarkerClickListener(this);
 
@@ -202,7 +215,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
             //  Log.e("ABCD", "Muestra info del Marker");
             UsuarioFragment.newInstance(marker.getTitle(),
                     "Casa")
-                    .show(getFragmentManager(), null);
+                    .show(requireFragmentManager(), null);
         }
         else {
             //Log.e("ABCD", "NO muestra info del Marker");
