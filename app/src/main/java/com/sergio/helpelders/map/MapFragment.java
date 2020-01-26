@@ -165,6 +165,8 @@ public class MapFragment extends Util implements OnMapReadyCallback, GoogleMap.O
         user3 = new LatLng(41.45347907732966, 2.2072492500832936);
         infoWindowUser = markerUser = mMap.addMarker(new MarkerOptions().position(user3).title("Amaia").snippet("Abuela").icon(BitmapDescriptorFactory.fromResource(R.drawable.profile_image_24)));
 
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(user1,10));
+
         /*
         // Marcador
         LatLng Santaco = new LatLng(41.4537951, 2.2091939);

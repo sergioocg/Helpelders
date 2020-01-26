@@ -19,11 +19,10 @@ import com.sergio.helpelders.R;
 import es.dmoral.toasty.Toasty;
 
 public class MessageFragment extends Fragment {
-    ListView list;
-    ListAdapterChats adapter;
-    String[] name,message;
-
-    int[] image;
+    private ListView listView;
+    private ListAdapterChats adapterChats;
+    private String[] arrayNombres, arrayMensajes;
+    private int[] arrayImagenesPerfil;
 
     public MessageFragment() {}
 
@@ -38,32 +37,30 @@ public class MessageFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        name = new String[]{ "Fabián", "Miguel", "Anthea", "Maeve"};
+        arrayNombres = new String[]{ "Fabián", "Miguel", "Anthea", "Maeve"};
 
-        message = new String[]{"Puto, ¿cómo vas?", "Heyyy", "Estoy escuchando música", "Ella Fitzgerald..."};
+        arrayMensajes = new String[]{"Hey, ¿qué tal?", "Buenas", "Estoy escuchando música", "Ella Fitzgerald..."};
 
 
-        image = new int[] {R.drawable.profile_image,
+        arrayImagenesPerfil = new int[] {R.drawable.profile_image,
                 R.drawable.profile_image,
                 R.drawable.profile_image,
                 R.drawable.profile_image};
 
 
-        // Locate the ListView in listview_main.xml
-        list = (ListView)view.findViewById(R.id.mylist);
+        listView = view.findViewById(R.id.listChats);
 
-        // Pass results to ListViewAdapter Class
-        adapter = new ListAdapterChats(requireContext(), name,message,image);
-        // Binds the Adapter to the ListView
-        list.setAdapter(adapter);
-        // Capture ListView item click
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        adapterChats = new ListAdapterChats(requireContext(), arrayNombres, arrayMensajes, arrayImagenesPerfil);
+
+        listView.setAdapter(adapterChats);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                Toasty.info(requireContext(),"Has seleccionado: " + name[position], Toast.LENGTH_SHORT).show();
+                Toasty.info(requireContext(),"Has seleccionado: " + arrayNombres[position], Toast.LENGTH_SHORT).show();
             }
 
         });

@@ -17,7 +17,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.sergio.helpelders.R;
 
-// https://www.youtube.com/watch?v=byLKoPgB7yA
 public class ViewpagerFragment extends Fragment {
     /**
      * Atributos

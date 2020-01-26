@@ -53,7 +53,11 @@
         android:id="@+id/profileFragment"
         android:name="com.sergio.helpelders.home.principal.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_fullProfileFragment"
+            app:destination="@id/fullProfileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/messageFragment"
         android:name="com.sergio.helpelders.messages.MessageFragment"
@@ -69,13 +73,22 @@
             app:destination="@id/homeFragment" />
     </fragment>
     <fragment
+        android:id="@+id/fullProfileFragment"
+        android:name="com.sergio.helpelders.home.principal.profile.FullProfileFragment"
+        android:label="fragment_full_profile"
+        tools:layout="@layout/fragment_full_profile" >
+        <action
+            android:id="@+id/action_fullProfileFragment_to_helpFragment"
+            app:destination="@id/helpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="com.sergio.helpelders.home.principal.help.HelpFragment"
+        android:label="fragment_help"
+        tools:layout="@layout/fragment_help" />
+    <fragment
         android:id="@+id/publishFragment"
         android:name="com.sergio.helpelders.home.principal.PublishFragment"
         android:label="fragment_publish"
         tools:layout="@layout/fragment_publish" />
-    <fragment
-        android:id="@+id/fullProfileFragment"
-        android:name="com.sergio.helpelders.home.principal.profile.FullProfileFragment"
-        android:label="fragment_full_profile"
-        tools:layout="@layout/fragment_full_profile" />
 </navigation>

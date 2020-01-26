@@ -1,4 +1,4 @@
-package com.sergio.helpelders.messages;
+package com.sergio.helpelders.home.principal.help;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,13 +11,14 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 import com.sergio.helpelders.R;
 
 
-public class ListAdapterChats extends BaseAdapter {
+public class ListAdapterHelp extends BaseAdapter {
+    // Declare Variables
     Context context;
     String[] name,message;
     int[] image;
     LayoutInflater inflater;
 
-    public ListAdapterChats(Context context, String[] name, String[] message, int[] image) {
+    public ListAdapterHelp(Context context, String[] name, String[] message, int[] image) {
         this.context = context;
         this.name = name;
         this.message = message;
@@ -41,13 +42,15 @@ public class ListAdapterChats extends BaseAdapter {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        TextView txtname, txtmessage;
+
+        // Declare Variables
+        TextView txtname,txtmessage;
         CircularImageView imagename;
 
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View itemView = inflater.inflate(R.layout.item_list_chats, parent, false);
+        View itemView = inflater.inflate(R.layout.item_list_help, parent, false);
 
         // Locate the TextViews in listview_item.xml
         txtname = (TextView) itemView.findViewById(R.id.txt_name);
@@ -57,8 +60,13 @@ public class ListAdapterChats extends BaseAdapter {
         // Locate the ImageView in listview_item.xml
         imagename = (CircularImageView) itemView.findViewById(R.id.image_profile);
 
+        // Capture position and set to the TextViews
         txtname.setText(name[position]);
+
         txtmessage.setText(message[position]);
+
+
+        // Capture position and set to the ImageView
         imagename.setImageResource(image[position]);
 
         return itemView;

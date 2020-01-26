@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="lista_cuidados">
+        <item>Terapeuta ocupacional</item>
+        <item>Fisioterapeuta</item>
+        <item>Rehabilitación</item>
+        <item>Compañía</item>
+        <item>Servicio puntual</item>
+    </string-array>
+</resources>

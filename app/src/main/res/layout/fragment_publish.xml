@@ -1,14 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondo_publicar"
     tools:context=".home.principal.PublishFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Publicar" />
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+    <ImageView
+        android:id="@+id/cabecera"
+        android:layout_width="match_parent"
+        android:layout_height="212dp"
+        android:src="@drawable/degradacion"
+        android:scaleType="fitXY"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <!-- Servicio que desea, etc, etc... -->
+
+    <TextView
+        android:id="@+id/txt_publicar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="P U B L I C A R"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:layout_marginTop="70dp"
+        android:layout_marginStart="15dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_below="@id/txt_publicar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="S E R V I C I O"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:layout_marginStart="15dp"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:id="@+id/linearPrincipal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/bg_button_semiwhite"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <com.github.florent37.materialtextfield.MaterialTextField
+            android:id="@+id/text_layout_titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:mtf_image="@drawable/ic_person_black_24dp"
+            app:mtf_cardCollapsedHeight="2dp"
+            android:theme="@style/myEditTextStyle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/text_titulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Título"
+                android:singleLine="true"
+                android:textColor="@color/colorBack" />
+        </com.github.florent37.materialtextfield.MaterialTextField>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/myEditTextStyle"
+            android:layout_marginTop="60dp"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            android:text="¿Qué cuidados necesitas?"/>
+
+        <Spinner
+            android:id="@+id/lista_cuidados"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_gravity="center">
+
+        </Spinner>
+
+        <com.github.florent37.materialtextfield.MaterialTextField
+            android:id="@+id/text_layout_fechaserv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:mtf_cardCollapsedHeight="2dp"
+            android:layout_marginTop="20dp"
+            app:mtf_image="@drawable/ic_date_black_24dp"
+            android:theme="@style/myEditTextStyle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/text_fechaserv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Fecha del servicio"
+                android:textColor="@color/colorBack" />
+            android:singleLine="true"/>
+        </com.github.florent37.materialtextfield.MaterialTextField>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/myEditTextStyle"
+            android:layout_marginTop="50dp"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            android:text="Descripción"/>
+
+        <EditText
+            android:id="@+id/text_descripcion"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_button_white"
+            android:paddingStart="10dp"
+            android:hint="Introduce una breve descripción..."
+            android:textColor="@color/colorWhite"
+            android:singleLine="false"
+            android:textColorHint="@color/colorSubtitle"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
+    <com.ornach.nobobutton.NoboButton
+        android:id="@+id/boton_publicar"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        app:nb_text="Publicar"
+        app:nb_borderColor="#FFFFFF"
+        app:nb_borderWidth="5dp"
+        app:nb_backgroundColor="#3DD682"
+        app:nb_textColor="#FFF"
+        app:nb_radius="10dp"
+        app:nb_textAllCaps="true"
+        app:nb_fontIcon="&#xf007;"/>
+    </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

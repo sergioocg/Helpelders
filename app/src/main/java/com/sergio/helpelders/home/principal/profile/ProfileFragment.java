@@ -40,6 +40,8 @@ public class ProfileFragment extends Util {
 
     int[] image;
 
+    private ImageView btnAyuda;
+
     /**
      * Atributos
      */
@@ -56,6 +58,7 @@ public class ProfileFragment extends Util {
     private void setInitWidgets(View view) {
         nombreApellidosTextView = view.findViewById(R.id.nombre);
         btnVerPerfil = view.findViewById(R.id.verPefilCompleto);
+        btnAyuda = view.findViewById(R.id.boton_ayuda);
     }
 
     private void setListeners(View view) {
@@ -63,6 +66,13 @@ public class ProfileFragment extends Util {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(view).navigate(R.id.fullProfileFragment);
+            }
+        });
+
+        btnAyuda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.helpFragment);
             }
         });
     }

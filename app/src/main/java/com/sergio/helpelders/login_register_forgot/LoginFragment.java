@@ -68,10 +68,6 @@ public class LoginFragment extends Util {
      * A través de una instancia del Calendario obtenemos la hora actual.
      * Dependiendo de la hora, se cambiará el fondo y texto del layout de Login
      */
-    // Agradecimientos
-    // https://www.youtube.com/watch?v=Tk_zDJCrRSY&t=1423s
-    // https://www.uplabs.com/posts/login-ui-ux-504e2015-ee34-45ec-ae1a-286d166ed6e6
-
     private void setListeners() {
         registerButton.setOnClickListener(view12 -> Navigation.findNavController(view12).navigate(R.id.registerFragment));
 

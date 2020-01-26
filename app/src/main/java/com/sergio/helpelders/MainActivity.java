@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
      * @SpaceNavigationView bottomBar, muestra la barra inferior (librería externa https://github.com/armcha/Space-Navigation-View)
      */
     private NavController navController;
-    //private Toolbar toolbar;
     SpaceNavigationView bottomBar;
 
     /**
@@ -38,9 +37,10 @@ public class MainActivity extends AppCompatActivity {
      * onItemReselected en este caso muestra un Toast cuando se vuelve a pulsar un elemento.
      */
     private void setBottomBar(Bundle savedInstanceState) {
-        bottomBar = findViewById(R.id.space);
+        bottomBar = findViewById(R.id.bottomBar);
 
         bottomBar.initWithSaveInstanceState(savedInstanceState);
+        bottomBar.showIconOnly();
         bottomBar.addSpaceItem(new SpaceItem("Inicio", R.drawable.ic_home_black_24dp));
         bottomBar.addSpaceItem(new SpaceItem("Publicar", R.drawable.ic_add_black_24dp));
         bottomBar.addSpaceItem(new SpaceItem("Mensajes", R.drawable.ic_message_black_24dp));
@@ -57,30 +57,30 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(int itemIndex, String itemName) {
-                Toasty.info(MainActivity.this, itemIndex + " " + itemName, Toast.LENGTH_SHORT).show();
+                //Toasty.info(MainActivity.this, itemIndex + " " + itemName, Toast.LENGTH_SHORT).show();
 
                 switch(itemIndex) {
                     case 0: // Inicio
                         navController.navigate(R.id.homeFragment);
-                        break;
+                    break;
 
                     case 1: // Publicar
                         navController.navigate(R.id.publishFragment);
-                        break;
+                    break;
 
                     case 2: // Mensajes
                         navController.navigate(R.id.messageFragment);
-                        break;
+                    break;
 
                     case 3: // Perfil
                         navController.navigate(R.id.profileFragment);
-                        break;
+                    break;
                 }
             }
 
             @Override
             public void onItemReselected(int itemIndex, String itemName) {
-                Toasty.info(MainActivity.this, itemIndex + " " + itemName, Toast.LENGTH_SHORT).show();
+                //Toasty.info(MainActivity.this, itemIndex + " " + itemName, Toast.LENGTH_SHORT).show();
             }
         });
     }

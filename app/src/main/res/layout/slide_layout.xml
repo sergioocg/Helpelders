@@ -13,7 +13,7 @@
         android:layout_height="200dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
-        app:srcCompat="@drawable/eat_icon" />
+        app:srcCompat="@drawable/profile_image" />
 
     <TextView
         android:id="@+id/slide_heading"

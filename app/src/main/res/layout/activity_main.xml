@@ -20,7 +20,7 @@
 
     <com.luseen.spacenavigation.SpaceNavigationView
         app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/space"
+        android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="bottom"

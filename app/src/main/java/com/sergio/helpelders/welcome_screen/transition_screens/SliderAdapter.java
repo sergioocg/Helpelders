@@ -13,10 +13,6 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import com.sergio.helpelders.R;
 
-// https://www.youtube.com/watch?v=byLKoPgB7yA
-
-// https://www.youtube.com/watch?v=R_AIºUy7tFVA es mejor
-
 public class SliderAdapter extends PagerAdapter {
     Context context;
     LayoutInflater layoutInflater;
@@ -25,12 +21,11 @@ public class SliderAdapter extends PagerAdapter {
         this.context = context;
     }
 
-    // Store the values for our slider
 
-    public int[] slide_images = {
-            R.drawable.eat_icon,
-            R.drawable.sleep_icon,
-            R.drawable.code_icon
+    public int[] imagenesSlider = {
+            R.drawable.profile_image,
+            R.drawable.profile_image,
+            R.drawable.profile_image
     };
 
     public String[] slide_headings = {
@@ -68,7 +63,7 @@ public class SliderAdapter extends PagerAdapter {
         TextView slideHeading = (TextView) view.findViewById(R.id.slide_heading);
         TextView slideDescription = (TextView) view.findViewById(R.id.slide_description);
 
-        slideImageView.setImageResource(slide_images[position]);
+        slideImageView.setImageResource(imagenesSlider[position]);
         slideHeading.setText(slide_headings[position]);
         slideDescription.setText(slide_desc[position]);
 
@@ -77,7 +72,7 @@ public class SliderAdapter extends PagerAdapter {
         return view;
     }
 
-    // El método al llegar a la última página, will stop, así no se crean múltiples slide
+    // El método al llegar a la última página, se detiene, así no se crean múltiples slider
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         container.removeView((RelativeLayout)object);
