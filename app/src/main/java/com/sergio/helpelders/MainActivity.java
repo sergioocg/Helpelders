@@ -17,6 +17,10 @@ import com.luseen.spacenavigation.SpaceOnClickListener;
 import es.dmoral.toasty.Toasty;
 
 /**
+ * Ahora estoy en bugfix
+ */
+
+/**
  * Fragment y NavHost
  * https://github.com/gerardfp/P9/tree/master/app/src/main/java/com/company/p9
  */
